@@ -1,0 +1,39 @@
+
+<p>In this task you will play the role of a selector.</p>
+<p>Please read carefully the following instructions, as your payoff will depend on understanding the nature of the task.</p>
+<br>
+
+<h4>Overview</h4>
+<p>The aim of this survey is to study how people evaluate the performance of others.</p>
+<p>On November X 2021, YYY "performers" were hired via Prolific to do two separate tasks.</p>
+<p>The first task was a maths quiz. The performers had to solve several maths problems.</p>
+<p>The second task was an empathy test. The performers were shown photographs of real people expressing emotions such as happiness, anger, sadness, and disgust. The participants were asked to guess which emotion was being expressed.</p>
+<p>For both the empathy and maths task, the performers did two rounds</p>
+<p>Their performance in these tasks was recorded, as well as some other biographical details.</p>
+<p>The performers were also asked to choose a &ldquo;study name&rdquo; from a list of common German names. This study name would be used as their pseudonym when showing their work to other participants in subsequent stages of the study.</p>
+<p>Subsequently, on November Z 2021, YYY "referrers" were hired via Prolific.</p>
+<p>Like the performers, the referrers were also asked to choose a &ldquo;study name&rdquo; from a list of common German names.</p>
+<p>The referrers were profiles of certain performers. The profiles contained the study name of the performer, some biographical information, as well as their score in the <i>first</i> round of the maths or empathy task.<p>
+<p>The referrers were asked whether they wished to refer the performer to the &ldquo;selectors&rdquo; - a group of participants, which includes you, who would be hired after the referrers in order to perform further evaluations.</p> 
+<p>Referring a performer meant that the referrer believed the performer would do well in the <i>second</i> round of the task - the round they had not seen.</p>
+<p>By referring a performer to the selectors, the referrers were  aware that they could potentially be rewarded or punished by a selector, depending on how well the performer did in the second round. How this referrer &ldquo;feedback&rdquo; mechanism works is explained in detail below.</p>
+
+<p><br></p>
+<h4>Your task</h4>
+<p>Shortly you will be shown, in sequence, pairs of profiles of performers. That is, you will be shown two performer profiles side-by-side. The profiles will display information on the referral status of the performer, as well as some biographical data.</p>
+<p>The "referral status" of the performer means whether or not they received a referral from one of the referrers. Some performers received a referral and some did not.&nbsp;</p>
+<p>If the performers received a referral, you will be shown the &ldquo;study name&rdquo; of the referrer who gave them the referral.</p>
+<p>After seeing the profiles, you will be asked which performer you wish to select. Once you have made your selection, you will be shown the score of that performer in the second round of the task. Remember, the referrer only saw the first round performance.</p>
+<p>Your payoff is tied to the second round performance. Your maximum payoff per selection is {{Constants.employer_reward}}. You will get a percentage of this sum equal to the percentage of correct answers given by the performer in the second round. For example, if they answered 50% of the questions correctly, you will get 50% of {{Constants.employer_reward}}, which is {{Constants.fifty_percent}}.</p>
+<p>Having been shown the second round performance, you may now choose &ndash; if you wish &ndash; to punish or reward the referrer. You can also do nothing &ndash; to neither punish nor reward them.</p>
+<p>If you do nothing, the referrer gets a payoff of {{Constants.referrer_neither}}.</p>
+<p>If you punish the referrer, their payoff decreases to {{Constants.referrer_punishment}}.</p>
+<p>If you reward them, their payoff increases to {{Constants.referrer_reward}}.</p>
+<p>Note, the decision to reward or punish <i>does not</i> affect your payoff. Whether you punish or reward them, or do neither, your payoff will remain the same.</p>
+<p>Of course, if you select a performer who does not have a referral, you will not have the chance to reward or punish a referrer.</p>
+<p>The graph at the bottom shows the sequence that is followed for each selection decision.</p>
+<p>To get an idea of nature of the tasks done by the performers, you will be asked to answer a subset of questions from the maths task and the empathy tasks, before you make your selection decisions for each task. You will only have to practice the task once, though you will make multiple decisions for each task.</p>
+<p>And before you make the selection decision for real, you will also have the chance to make a practice selection decision for a pair of fake candidates.</p>
+<p>Once you have read and understood these instructions, you may click &ldquo;Next&rdquo; below. This will bring you to the practice selection task.</p>
+<p><br></p>
+<p><br></p>

@@ -1,0 +1,64 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Practice selection decision
+{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+table {
+  width: 80%;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+	<br>
+	<p>This is the first part of the practice component. </p>
+	<p>Below are the fictional profiles of two performers who completed a fictional task – counting grains of sugar in a bowl.</p>
+	<p>The purpose of this page is to familiarise yourself with the selection task. Your behaviour here does not affect the payoff.</p>
+	<p>Please review the fictional profile and make your selection decision. Once you have made your selection decision you will be brought to the referrer feedback page where you will have the opportunity to reward or punish the referrer.</p>
+	<br>
+
+	<table border=1 align=center style="border: 2px solid black">
+		<tr>
+			<td width="30%" align=right> </td>
+			<td width="30%" align=center><strong>Performer A</strong></td>
+			<td width="30%" align=center><strong>Performer B</strong></td>
+		</tr>
+		<tr>
+			<td width="30%" align=right><i> Performer's Name </i></td>
+			<td width="30%" align=center> {{ Constants.practice_performer_a }} </strong></td>
+			<td width="30%" align=center> {{ Constants.practice_performer_b }} </strong></td>
+		</tr>
+		<tr>
+			<td width="30%" align=right><i> Referred by </i></td>
+			<td width="30%" align=center> {{ Constants.practice_referrer_a }} </strong></td>
+			<td width="30%" align=center> {{ Constants.practice_referrer_b }} </strong></td>
+		</tr>
+		<tr>
+			<td width="30%" align=right><i> Education </i></td>
+			<td width="30%" align=center> University </strong></td>
+			<td width="30%" align=center> Gymnasium </strong></td>
+		</tr>
+		<tr>
+			<td width="30%" align=right><i> Age </i></td>
+			<td width="30%" align=center> 32  </strong></td>
+			<td width="30%" align=center> 29  </strong></td>
+		</tr>
+	</table>
+
+
+	<br></br>
+
+
+	<p>Which performer do you wish to select?</p>
+	{% formfield player.select %}
+
+	<br>
+	<br>
+	{% next_button %}
+
+{% endblock %}

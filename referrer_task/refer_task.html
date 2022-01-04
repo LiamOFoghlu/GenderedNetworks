@@ -1,0 +1,37 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Referral: {{task}} task
+{% endblock %}
+
+{% block styles %}
+<style type="text/css">
+#Next {text-align: center;}
+table {
+  width: 80%;
+}
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<p>Below is the profile of a task-player who completed the {{task}} task.</p>
+<p>Please carefully read the profile and decide whether you wish to refer the candidate to an employer or not.</p>
+
+<br>
+
+{{ include refer_table_template }}
+
+<br>
+
+<p>Do you wish to refer this candidate to an employer?</p>
+{% formfield player.candidate_refer %}
+
+<br>
+<br>
+
+{% next_button %}
+
+{% endblock %}

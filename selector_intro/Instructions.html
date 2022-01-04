@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Instructions
+{% endblock %}
+
+{% block content %}
+
+
+{{ include instructions_template }}
+
+<img align=center src="{% static 'selector_payoff_flowchart.png' %}" width="700px" />
+
+<br>
+{% next_button %}
+
+{% endblock %}

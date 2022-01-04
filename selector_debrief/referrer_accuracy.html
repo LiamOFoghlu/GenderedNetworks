@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Referrer accuracy
+{% endblock %}
+{% block content %}
+
+<br>    
+<P>Before you finish, please answer the following question, with the chance to earn some extra money.</P>
+<p>Both female and male referrers were hired to review the performance of the performers and to decide whether or not they should be referred to selectors.</p>
+<p>The referrers made their decision based on the performer's score in the first round of the relevant task.</p>
+<p>Now imagine two groups: the group of all performers referred by female referrers, and the group of all performers referred by male referrers.</p>
+<p>To earn some extra money, we would like to ask you: which group scored higher in the second round of each task?</p> 
+<p>You will have to give two answers, one for each task.</p> 
+<p>For each correct answer, you will earn €0.50.</p>
+
+<br>
+<h4>Maths Task</h4>
+{{ formfield player.maths_gender_accuracy }}
+
+<br>
+<h4>Empathy Task</h4>
+{{ formfield player.empathy_gender_accuracy }}
+
+<br>
+{% next_button %}
+
+{% endblock %}

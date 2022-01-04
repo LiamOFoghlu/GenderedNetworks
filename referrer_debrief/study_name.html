@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Choose your study name
+{% endblock %}
+
+{{ block content }}
+
+<p>You have chosen to refer a performer to the selectors.</p>
+<p>Your referral may be shown to a selector.</p>
+<p>Please choose a study name below. In order to preserve your anonymity, this study name will be displayed alongside your referral if displayed to a selector. </p>
+<p>You can choose either a male name or a female name.</p>
+
+<br>
+
+<h4>Choose study name</h4>
+
+{% formfield player.study_name }}
+
+<br>
+
+{{ next_button }}
+
+{% endblock %}

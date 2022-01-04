@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Practice: {{task}} task
+{% endblock %}
+
+{% block content %}
+
+{{ include practice_template }}
+
+<br>
+<br>
+
+<h5> Questions </h5> 
+{% formfields %}
+
+<br>
+<br>
+
+{% next_button %}
+
+{% endblock %}

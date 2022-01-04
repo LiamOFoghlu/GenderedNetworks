@@ -1,0 +1,37 @@
+{{ block title }}
+    Task completed
+{{ endblock }}
+{{ block content }}
+
+<p> Thank you for your participation. Your total earnings will be calculated and paid shortly.</p>
+
+<p> </p>
+<br>
+<br>
+
+<h5>Completion Code</h5>
+
+<p>Please submit this completion code to Prolific to ensure that you are paid:</p>
+<br>
+<p><b>16422ADF</b></p>
+<br>
+<br>
+<h5> Further queries </h5>
+
+<p>Please note that your participant ID key is {{ participant.code }}.</p>
+<p>It will be useful to have this ID key if you wish to
+    communicate with the researchers who manage this study. The participation ID key is <i>not</i> your study completion code, which
+    is given above.</p>
+
+<p> You may contact the researchers through the Prolific instant messaging service. </p>
+
+<p> If you wish, you may address any specific concerns regarding data to the Data Controller William Foley at <a href="mailto:william.foley@eui.eu">william.foley@eui.eu</a>.
+    Please cc the European University Institute’s Data Protection Officer at <a href="mailto:data_protection_officer@eui.eu">data_protection_officer@eui.eu</a>.
+    The university’s Ethics Committee may be contacted through <a href="mailto:fatma.sayed@eui.eu">fatma.sayed@eui.eu</a>.
+</p>
+
+<p> You can also leave a comment below.</p>
+    {% formfield player.comment label="" %}
+
+<button>Submit comment</button>
+{% endblock %}

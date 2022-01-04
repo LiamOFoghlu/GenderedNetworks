@@ -1,0 +1,39 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Practice referral feedback
+{% endblock %}
+
+{% block content %}
+	<br>
+	<p>This is the second part of the practice component. </p>
+    <p>Below is displayed the score of the candidate you selected.</p>
+    <p>Please review the score and make your decision on what the referrer's payoff should be.</p>
+    <br>
+
+    <h5>Selected performer's second round score</h5>
+    <p>You selected {{performer_letter}}, {{performer_name}}.</p> 
+    <p>In the second round of the (fake) task, {{performer_name}} scored {{practice_performer_score}}.</p>
+    <p>Your payoff for selecting {{performer_name}} is: {{practice_payoff}}</p>
+    <br>
+    <br>
+
+    <h5>Refferer payoff</h5>
+    <p>{{performer_letter}}, {{performer_name}}, was referred to you by {{referrer_name}}.</p>
+    <p>Please consider {{performer_name}}'s score and decide whether you wish to:
+    <ul>
+        <li>Reward the referrer, by increasing their payoff to {{ Constants.referrer_reward}}</li>
+        <li>Punish the referrer, by decreasing their payoff to {{ Constants.referrer_punishment}}</li>
+        <li>Leave their payoff at {{ Constants.referrer_neither}}</li>
+    </ul>
+    <p>Remember, this is just a practice round. Your decision here will affect neither your own payoff nor the payoff of any actual referrer.</p>
+    <br>
+    <p>What payoff should {{referrer_name}} get?</p>
+	{% formfield player.referrer_feedback %}
+
+	<br>
+	<br>
+	{% next_button %}
+
+{% endblock %}
