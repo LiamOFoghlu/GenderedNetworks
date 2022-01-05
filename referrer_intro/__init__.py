@@ -10,11 +10,11 @@ class Constants(BaseConstants):
     name_in_url = 'referrer_intro'
     players_per_group = None
     num_rounds = 1
-    participation_fee = "€1.50"
-    punishment_bonus = "€0.70"
-    no_refer_bonus = "€1.50"
-    refer_bonus = "€1.70"
-    reward_bonus = "€2.50"
+    participation_fee = "€2.50"
+    no_refer_bonus = "€1.00"
+    refer_bonus = "€1.25"
+    punishment_bonus = "€0.90"
+    reward_bonus = "€1.50"
 
 
 class Subsession(BaseSubsession):

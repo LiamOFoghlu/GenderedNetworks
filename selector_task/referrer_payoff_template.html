@@ -2,11 +2,11 @@
 <p>{{performer_letter}}, {{performer_name}}, was referred to you by {{referrer_name}}.</p>
 <p>Please consider {{performer_name}}'s score and decide whether you wish to:
     <ul>
-        <li>Reward the referrer, by increasing their payoff to {{ Constants.referrer_reward}}</li>
-        <li>Punish the referrer, by decreasing their payoff to {{ Constants.referrer_punishment}}</li>
-        <li>Leave their payoff at {{ Constants.referrer_neither}}</li>
+        <li>Reward {{referrer_name}}, by increasing the referrer payoff to {{ Constants.referrer_reward}}</li>
+        <li>Punish {{referrer_name}}, by decreasing the referrer payoff to {{ Constants.referrer_punishment}}</li>
+        <li>Leave {{referrer_name}}'s payoff at {{ Constants.referrer_neither}}</li>
     </ul>
-<p>Remember, the decision you make regarding the referrer's payoff <i>does not</i> affect your own payoff.</p>
+<p>Remember, the decision you make regarding the referrer's payoff <i>does not</i> affect your own payoff.</p> 
     <br>
 <p>What payoff should {{referrer_name}} get?</p>
 {% formfield player.referrer_feedback %}

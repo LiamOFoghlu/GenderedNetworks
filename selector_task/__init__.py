@@ -15,9 +15,9 @@ class Constants(BaseConstants):
     rounds_per_task = 2
     num_rounds = len(tasks) * rounds_per_task # this the total number of rounds that will be done by the player (so, if they do 3 rounds of Task A and 3 rounds of Task B, then they will do 3 + 3 = 6 rounds overall)
     employer_reward = "€1.00"
-    referrer_punishment = "€0.70"
-    referrer_neither = "€1.70"
-    referrer_reward = "€2.50"
+    referrer_punishment = "€0.90"
+    referrer_neither = "€1.25"
+    referrer_reward = "€1.50"
 
     # practice questions
     player_maths_qs = 5 # these are the total number of questions answered by the performer per round

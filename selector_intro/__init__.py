@@ -11,10 +11,15 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     participation_fee = "€3.50"
-    employer_reward = "€1.00"
-    referrer_punishment = "€0.70"
-    referrer_neither = "€1.70"
-    referrer_reward = "€2.50"
+    employer_reward = "€0.50"
+    max_reward = 4*float(employer_reward[1:len(employer_reward)])   # assuming 4 rounds
+    max_reward = "€" + str(max_reward)
+    if len(max_reward) == 4:
+        max_reward = max_reward + "0"
+    referrer_punishment = "€0.90"
+    referrer_no_refer_bonus = "1.00"
+    referrer_neither = "€1.25"
+    referrer_reward = "€1.50"
     practice_performer_a = "Jenni"
     practice_performer_b = "Ulrich"
     practice_referrer_a = "Andreas"
@@ -61,11 +66,7 @@ class ProlificID(Page):
     form_fields = ['ProlificID']
 
 class Instructions(Page):
-    def vars_for_template(player):
-        instructions_template = 'selector_intro/instructions_template.txt'
-        return dict(
-                instructions_template = instructions_template,
-        )
+    pass 
 
 class Practice_select(Page):
     form_model = 'player'
