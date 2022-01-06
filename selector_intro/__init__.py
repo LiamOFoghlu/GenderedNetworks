@@ -17,7 +17,7 @@ class Constants(BaseConstants):
     if len(max_reward) == 4:
         max_reward = max_reward + "0"
     referrer_punishment = "€0.90"
-    referrer_no_refer_bonus = "1.00"
+    referrer_no_refer_bonus = "€1.00"
     referrer_neither = "€1.25"
     referrer_reward = "€1.50"
     practice_performer_a = "Jenni"
@@ -77,7 +77,7 @@ class Practice_feedback(Page):
     form_fields = ['referrer_feedback']
 
     def vars_for_template(player):
-        employer_reward_num = int(Constants.employer_reward[1])
+        employer_reward_num = float(Constants.employer_reward[1:len(Constants.employer_reward)])
         practice_payoff = str(employer_reward_num * Constants.practice_performer_score)
         if len(practice_payoff) < 4:
             practice_payoff = practice_payoff + "0"
