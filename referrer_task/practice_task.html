@@ -2,17 +2,13 @@
 {% load otree static %}
 
 {% block title %}
-Practice: {{task}} task
+The {{task}} task
 {% endblock %}
 
 {% block content %}
 
 {{ include practice_template }}
 
-<br>
-<br>
-
-<h5> Questions </h5> 
 {% formfields %}
 
 <br>

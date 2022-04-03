@@ -16,13 +16,13 @@ class Subsession(BaseSubsession):
 
 def creating_session(subsession):
         import random
-        female_names = ["Laura", "Julia", "Sarah", "Stefanie", "Lisa", "Anna",	"Vanessa", "Sabrina"]
-        male_names = ["Daniel", "Michael", "Patrick", "Lukas", "Florian", "Christian", "Andreas", "Thomas"]
+        female_names = ["Lauren", "Charlotte", "Sophie", "Emily", "Sarah", "Katie", "Jade", "Alice"]
+        male_names = ["James", "Daniel", "Ryan", "Luke", "Jordan", "Michael", "Christopher", "Joseph"]        
         for player in subsession.get_players():
             random.shuffle(female_names)
             random.shuffle(male_names)
-            choices = female_names[0:4]
-            choices.extend(male_names[0:4])
+            choices = female_names[0:5]
+            choices.extend(male_names[0:5])
             random.shuffle(choices)
             player.participant.referrer_name_choices = choices
             print(player.participant.code, player.participant.referrer_name_choices)
@@ -38,7 +38,7 @@ class Player(BasePlayer):
     stop_epochtime = models.IntegerField()
     stop_clocktime = models.StringField()
     total_time_to_completion = models.IntegerField()
-    empathy_r = models.IntegerField()
+    childcare_r = models.IntegerField()
     maths_r = models.IntegerField()
     study_name = models.StringField()
 
@@ -65,11 +65,11 @@ class end(Page):
         # record time player finished application
         import time 
         time_out = round(time.time())
-        # player.stop_epochtime = time_out
-        # player.total_time_to_completion = time_out - player.participant.referrer_start_epochtime
-        # player.stop_clocktime = time.strftime('%H:%M:%S', time.localtime(time_out))
-        # player.empathy_r = player.participant.referrer_empathy_r
-        # player.maths_r = player.participant.referrer_maths_r
+        player.stop_epochtime = time_out
+        player.total_time_to_completion = time_out - player.participant.referrer_start_epochtime
+        player.stop_clocktime = time.strftime('%H:%M:%S', time.localtime(time_out))
+        player.childcare_r = player.participant.referrer_childcare_r
+        player.maths_r = player.participant.referrer_maths_r
         return 1
 
 

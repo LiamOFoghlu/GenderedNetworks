@@ -1,0 +1,24 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Average performance
+{% endblock %}
+{% block content %}
+
+<p>This is the final task you are kindly requested to do. Both female and male participants will complete the maths quiz and childcare knowledge test. Before you go, please indicate, for each task, whether you think males or females will score higher on average.</p> 
+<p>For each correct answer, you will earn an additional £0.50 on top of your earnings so far. In case of a tie between males and females you will receive the £0.50 anyway.</p>
+
+<br>
+<br>
+<h4>Maths Task</h4>
+{{ formfield player.maths_gender_performance }}
+
+<br>
+<h4>Childcare Task</h4>
+{{ formfield player.childcare_gender_performance }}
+
+<br>
+{% next_button %}
+
+{% endblock %}

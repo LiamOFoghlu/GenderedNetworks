@@ -2,15 +2,14 @@
 {% load otree static %}
 
 {% block title %}
-Referrer feedback for the {{task}} task. Round {{display_round}}
+Referrer feedback for the {{task}} task. Round {{display_round}} of {{Constants.rounds_per_task}}
 {% endblock %}
 
 {% block content %} 
 
 <br>
 <h4>Selected performer's second round score</h4>
-<p>You selected {{performer_letter}}, {{performer_name}}.</p> 
-<p>In the second round of the {{task}} task, {{performer_name}} scored {{performer_score}}.</p>
+<p>You selected {{performer_letter}}, {{performer_name}}. In the second round of the {{task}} task, {{performer_name}} scored {{performer_score}}.</p>
 <p>Your payoff for selecting {{performer_name}} is: {{employer_payoff}}</p>
 <br>
 

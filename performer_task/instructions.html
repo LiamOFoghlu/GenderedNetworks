@@ -1,20 +1,10 @@
 {{ block title }}
-    Instructions for task {{task_order_num}}: {{task}} Task
+    {{task}} Task
 {{ endblock }}
 {{ block content }}
-
-<br>
-<p>This is the {{task_order_alph}} of two tasks you will have to complete.</p>
-<b>Please read the instructions below all the way through.</b>
-<br>
-
-
 {{include template}}
-<p>You will be paid a bonus of {{Constants.reward_per_q}} for every correct answer. (This is on top of your participation fee of {{ Constants.participation_fee }}.)</p>
-<p>You have a maximum of {{timeout}} minutes per round to answer your questions. As soon as you load the page, a timer will begin. When the {{timeout}} minutes are up, any answers you have already given will be recorded and you will be sent to the next page.</p>
-<p>After the first round, you will immediately begin the second round.</p>
-<br>
-<p>Click "Next" to continue to the first round of the task.</p>
+<p>You will be paid a bonus of {{Constants.reward_per_q}} for every correct answer. You have a maximum of {{timeout}} minutes per round to answer your questions. As soon as you load the page, a timer will begin. After the first round, you will immediately begin the second round.</p>
+<p>Click "Next" to continue to the first round.</p>
 <br>
 {{ next_button }}
 

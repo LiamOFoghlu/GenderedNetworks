@@ -8,38 +8,11 @@
 {% block content %}
 
 	<h5>Study description</h5>
-	<p>Researchers from the European University Institute and the University of Amsterdam request your participation in a study concerning performance in a maths task and an empathy task.</p>	
+	<p>Researchers from the European University Institute, the University of Lausanne and the University of Amsterdam are inviting you to participate in a study concerning the evaluation of performance in a maths task and an empathy task.</p>	
 	<p> You will be paid a flat fee of {{ Constants.participation_fee }} to participate.
-		You will also receive a bonus payment of up to {{ Constants.reward_bonus }}, based on your evaluation of the players’ performance.
+		You will also receive a bonus payment of up to {{ Constants.total_max_reward_bonus }}, based on your evaluation of the performance.
 	</p>
-	<p>This study has been approved by the European University Institute’s Ethics Review Committee.</p>
-	<br>
-	<h5>Data processing</h5>
-	<p>Data will be collected on your performance, as well as some basic demographic
-		information which you have already provided to Prolific. All data are stored anonymously and cannot be linked
-		to specific names.
-	 <p>Data will be stored on servers located in the European Union. This data will be analysed statistically by the researchers and is
-		intended for use in an academic publication. It may also be made available to the international research
-		community, for transparency and re-usage in future studies, which may involve international data transfers.</p>
-	<br>
-	<h5>Informed consent</h5>
-	<p>The following section contains a series of statements regarding your rights as a participant. If you agree with
-		and understand the statements, click the "Next" button below to begin the activity. Clicking the "Next" button is
-		considered a statement of consent: that you willingly participate in the research activity, and that you consent
-		to the data being processed in the way indicated above.</p>
-	<b>Statement of consent</b>
-	<p>I agree to participate in this research project on the following conditions:</p>
-	<p><b>1.</b> I have received sufficient information about this research project and the future processing of my personal
-		data.</p>
-	<p><b>2.</b> I have the right to withdraw from the activity before completion and ask that the data collected prior to the
-		withdrawal be deleted.</p>
-	<p><b>3.</b> The researchers will not personally identify me by name or by other means.</p>
-	<p><b>4.</b> I am assured that this research project has been reviewed and approved by the EUI Ethics Committee. The email
-		addresses of the EUI Data Protection Officer and the Data Controller will be placed at the end of the task, and any queries
-		or complaints can be addressed to them.</p>
-
-	<p>By clicking the "Next" button below, and continuing this activity, I consent to participate in the research
-		activity.</p>
+	{{ include template}}
 
     {% next_button %}
 

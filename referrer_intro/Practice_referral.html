@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Practice evaluation round
+    Practice referral round
 {% endblock %}
 
 {% block styles %}
@@ -17,10 +17,7 @@ table {
 
 {% block content %}
 	<br>
-	<p>Before you make your decisions for real you may practice making a referral, in order to familiarise yourself with the nature of the task.</p>
-	<p>Below is a fictional profile of a performer who completed a fictional task – counting grains of sugar in a bowl.</p>
-	<p>Please review the fictional profile and make your referral decision. </p>
-	<p>Your behaviour here does not affect the payoff.</p>
+	<p>Before you make your decisions for real you may practice making a referral. Below is a fictional profile of a performer who completed a fictional task – counting grains of sugar in a bowl. Please review the fictional profile and make your referral decision. Your behaviour here does not affect the payoff.</p>
 	<br>
 
 	{{ include refer_table_template }}
@@ -29,9 +26,8 @@ table {
 
 
 	<p>Do you wish to refer this performer to a selector?</p>
-	{% formfield player.Refer %}
+	{% formfield player.Practice_refer %}
 
-	<br>
 	<br>
 	{% next_button %}
 

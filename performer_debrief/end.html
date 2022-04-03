@@ -1,37 +1,58 @@
-{{ block title }}
-    Task completed
-{{ endblock }}
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Activity completed
+{% endblock %}
+
 {{ block content }}
 
-<p> Thank you for your participation. Your total earnings will be calculated and paid shortly.</p>
-
-<p> </p>
 <br>
+<p> Thank you for your participation. Your total earnings will be calculated and paid within 48 hours.</p>
 <br>
 
 <h5>Completion Code</h5>
 
 <p>Please submit this completion code to Prolific to ensure that you are paid:</p>
 <br>
-<p><b>16422ADF</b></p>
+<p><b>68CDCA68</b></p>
 <br>
 <br>
 <h5> Further queries </h5>
 
 <p>Please note that your participant ID key is {{ participant.code }}.</p>
 <p>It will be useful to have this ID key if you wish to
-    communicate with the researchers who manage this study. The participation ID key is <i>not</i> your study completion code, which
+    communicate with the researcher who manages this study. The participation ID key is <i>not</i> your study completion code, which
     is given above.</p>
 
-<p> You may contact the researchers through the Prolific instant messaging service. </p>
+<p> You may contact the researcher through the Prolific instant messaging service, or by emailing William Foley at <a href="mailto:william.foley@eui.eu">william.foley@eui.eu</a>. </p>
 
-<p> If you wish, you may address any specific concerns regarding data to the Data Controller William Foley at <a href="mailto:william.foley@eui.eu">william.foley@eui.eu</a>.
-    Please cc the European University Institute’s Data Protection Officer at <a href="mailto:data_protection_officer@eui.eu">data_protection_officer@eui.eu</a>.
-    The university’s Ethics Committee may be contacted through <a href="mailto:fatma.sayed@eui.eu">fatma.sayed@eui.eu</a>.
-</p>
+<p> If you wish, you may address any specific concerns regarding data to the Data Controller William Foley at <a href="mailto:william.foley@eui.eu">william.foley@eui.eu</a>. Please cc the European University Institute’s Data Protection Officer at <a href="mailto:data_protection_officer@eui.eu">data_protection_officer@eui.eu</a>. The university’s Ethics Committee may be contacted through <a href="mailto:ethics@eui.eu">ethics@eui.eu</a>.</p>
 
 <p> You can also leave a comment below.</p>
     {% formfield player.comment label="" %}
 
 <button>Submit comment</button>
+
+<br>
+<br>
+<br>
+<br>
+<h5>Note on sources</h5>
+<p>For the childcare knowledge test, the following sources were used to create the text:</p>
+<ul>
+<li>https://en.wikipedia.org/wiki/Parenting</li>
+<li>https://en.wikipedia.org/wiki/Infant</li>
+<li>https://en.wikipedia.org/wiki/Breastfeeding</li>
+<li>https://en.wikipedia.org/wiki/Newborn_care_and_safety</li>
+<li>https://www.who.int/en/news-room/fact-sheets/detail/infant-and-young-child-feeding </li>
+<li>https://www.nhs.uk/conditions/baby/caring-for-a-newborn/washing-and-bathing-your-baby/ </li>
+<li>https://www.nhs.uk/conditions/baby/caring-for-a-newborn/helping-your-baby-to-sleep/ </li>
+<li>https://www.nhs.uk/conditions/baby/caring-for-a-newborn/soothing-a-crying-baby/ </li>
+<li>https://raisingchildren.net.au/babies/sleep/understanding-sleep/sleep-2-12-months</li>
+<li>https://en.wikipedia.org/wiki/Toddler </li>
+<li>https://www.nhs.uk/conditions/baby/babys-development/play-and-learning/keep-baby-or-toddler-active/ </li>
+<li>https://en.wikipedia.org/wiki/Gross_motor_skill </li>
+</ul>
+
 {% endblock %}

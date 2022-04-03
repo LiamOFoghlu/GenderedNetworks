@@ -1,0 +1,16 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Introduction
+{% endblock %}
+
+{% block content %}
+<p>In this activity, you will do three tasks:</p> 
+{{include template}}
+<p>Click "Next" to begin the first task.</p>
+<br>
+
+{{ next_button }}
+
+{{endblock}}

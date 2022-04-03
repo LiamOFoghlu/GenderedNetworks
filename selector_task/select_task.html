@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-Select performer for {{task}} task. Round {{display_round}}
+Select performer for {{task}} task. Round {{display_round}} of {{Constants.rounds_per_task}}
 {% endblock %}
 
 {% block styles %}
@@ -17,10 +17,7 @@ table {
 
 {% block content %}
 
-<p>Below are the profiles of two performers who completed the {{task}} task.</p>
-<p>Please carefully read the profiles and decide which performer you wish to select.</p>
-<p>Remember, your payoff depends on the score of the performer in the second round of the {{task}} task.</p>
-<p>Remember also that referrers only saw the performer's score in the first round of the {{task}} task.</p>
+<p>Below are the profiles of two performers who completed the {{task}} task. You have to select one of them. Remember, your payoff depends on the score of the performer in the second round of the {{task}} task.</p>
 <br>
 
 {{ include select_table_template }}

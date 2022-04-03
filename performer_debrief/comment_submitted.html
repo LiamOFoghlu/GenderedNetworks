@@ -4,13 +4,20 @@
 {% block title %}
 Comment submitted
 {% endblock %}
-{% block content %}
+
+{{ block content }}
+
+<br>
 <p>Thank you for your comment. </p>
 <p>Here is your completion code in case you still need it:</p>
 <br>
-<p><b>16422ADF</b></p>
-<br>
+<p><b>68CDCA68</b></p>
 <br>
 <p>If you wish to communicate further with the researchers who manage this study, it will be useful to hold on to your
     participant ID key {{ participant.code }}.</p>
+<p> You may contact the researcher through the Prolific instant messaging service, or by emailing William Foley at <a href="mailto:william.foley@eui.eu">william.foley@eui.eu</a>. </p>
+
+<p> If you wish, you may address any specific concerns regarding data to the Data Controller William Foley at <a href="mailto:william.foley@eui.eu">william.foley@eui.eu</a>. Please cc the European University Institute’s Data Protection Officer at <a href="mailto:data_protection_officer@eui.eu">data_protection_officer@eui.eu</a>. The university’s Ethics Committee may be contacted through <a href="mailto:ethics@eui.eu">ethics@eui.eu</a>.</p>
+
+ </p>
 {% endblock %}

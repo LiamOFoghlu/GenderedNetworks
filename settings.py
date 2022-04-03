@@ -28,32 +28,33 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 PARTICIPANT_FIELDS = [
-    'performer_round_numbers',       # a list definining the order in which maths and empathy tasks should be shown
+    'performer_round_numbers',       # a list definining the order in which maths and childcare tasks should be shown
     'performer_start_epochtime',     # a scalar recording the epoch time the participant entered
     'performer_task_rounds',         # a dictionary with key = task and value = round in which task is displayed
     'performer_maths_r',             # random maths profile
-    'performer_empathy_r',           # random empathy profile
-    'performer_task_order',          # 1 = maths first; 2 = empathy first
+    'performer_childcare_r',           # random childcare profile
+    'performer_task_order',          # 1 = maths first; 2 = childcare first
     'performer_name_choices',        # a list with a random selection of common german first names
-    'referrer_round_numbers',       # a list definining the order in which maths and empathy tasks should be shown
+    'referrer_round_numbers',       # a list definining the order in which maths and childcare tasks should be shown
     'referrer_start_epochtime',     # a scalar recording the epoch time the participant entered
     'referrer_task_rounds',         # a dictionary with key = task and value = round in which task is displayed
     'referrer_maths_r',             # random maths profile
-    'referrer_empathy_r',           # random empathy profile
-    'referrer_task_order',          # 1 = maths first; 2 = empathy first
+    'referrer_childcare_r',           # random childcare profile
+    'referrer_task_order',          # 1 = maths first; 2 = childcare first
     'referrer_mathspractice_q1',
     'referrer_mathspractice_q2',
-    'referrer_empathypractice_q1',
-    'referrer_empathypractice_q2',
+    'referrer_childcarepractice_q1',
+    'referrer_childcarepractice_q2',
     'referrer_any_referral',        # did the referrer make a referral?
     'referrer_name_choices',        # a list with a random selection of common german first names
-    'selector_round_numbers',       # a list definining the order in which maths and empathy tasks should be shown
+    'selector_round_numbers',       # a list definining the order in which maths and childcare tasks should be shown
     'selector_start_epochtime',     # a scalar recording the epoch time the participant entered
     'selector_task_rounds',         # a dictionary with key = task and value = round in which task is displayed
     'selector_maths_r',             # random maths profile
-    'selector_empathy_r',           # random empathy profile
-    'selector_task_order',          # 1 = maths first; 2 = empathy first
-    'selector_maths_practice_qs'    # list of the randomsied index of maths questions
+    'selector_childcare_r',         # random childcare profile
+    'selector_task_order',          # 1 = maths first; 2 = childcare first
+    'selector_maths_practice_qs',    # list of the randomsied index of maths questions
+    'selector_childcare_practice_qs' # list of the randomsied index of childcare questions
 ]
 SESSION_FIELDS = []
 
@@ -62,7 +63,7 @@ SESSION_FIELDS = []
 LANGUAGE_CODE = 'en'
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'EUR'
+REAL_WORLD_CURRENCY_CODE = 'GBP'
 USE_POINTS = True
 
 ADMIN_USERNAME = 'admin'

@@ -7,26 +7,26 @@
 
 {% block content %}
 
-<p>On February X 2022, YYY &quot;performers&quot; were hired via Prolific to perform two separate tasks.</p>
-<p>The first task was a maths quiz. The second task was an empathy test. They did two rounds of each task.</p>
-<p>On February Y 2022, ZZZ &ldquo;referrers&rdquo; were hired via Prolific. They were shown profiles of randomly chosen performers. The profiles contained information on the score of the performers in the first round of the maths or empathy task.</p>
-<p>The referrers were asked whether they wished to &ldquo;refer&rdquo; the performer to a group of &ldquo;selectors&rdquo;. If they chose not to refer, they received a payoff of {{Constants.referrer_no_refer_bonus}}. If they chose to refer, they received a conditional payoff of {{Constants.referrer_neither}}.</p>
-<p><br></p>
-<h5>Your task</h5>
-<p>Your task is to take on the role of &quot;selector&quot;.</p>
-<p>Shortly you will be shown, in sequence, pairs of profiles of performers. Besides providing some biographical data, the performers&rsquo; profiles will display information on whether the performer is referred or not and, if referred, by whom.&nbsp;</p>
-<p>After seeing the profiles, you will be asked which performer you wish to select. Once you have made your selection, you will be shown the score of that performer in the second round of the task. Remember, the referrer made the referral decision knowing only the first round score.</p>
-<p>Your payoff is tied to the second round score. Your maximum payoff per selection is {{ Constants.employer_reward }}. You will get a percentage of this sum equal to the percentage of correct answers given by the performer in the second round. For example, if they answered 50% of the questions correctly, you will get 50% of {{Constants.employer_reward}}., which is {{Constants.fifty_percent}}.</p>
-<p>Having been shown the second round score of the performer, you will be asked to choose &ndash; if you wish &ndash; to punish or reward the referrer for referring the performer you chose. You can also do nothing.</p>
-<p>If you do nothing, the referrer gets a payoff of {{Constants.referrer_neither}}.</p>
-<p>If you punish the referrer, their payoff decreases to {{Constants.referrer_punishment}}.</p>
-<p>If you reward them, their payoff increases to {{Constants.referrer_reward}}.</p>
-<p>Note that the decision to reward or punish the referrer does not affect your payoff. Whether you punish or reward them, or do neither, your payoff will remain the same.</p>
-<p>Of course, if you select a performer who is not referred, you will not have the chance to reward or punish a referrer.</p>
-<p>The diagram at the bottom shows the sequence that is followed for each selection decision.</p>
-<p><br></p>
+<br>
+<h5>The performers</h5>
+<p>On April X 2022, YYY "performers" were hired via Prolific to perform two separate tasks. The first task was a maths quiz. The second task was a reading comprehension test concerning childcare practices. They did two rounds of each task.</p>
 
-<img align=center src="{% static 'selector_payoff_diagram.png' %}" width="700px" />
+<br>
+<h5>The referrers</h5>
+<p>On April Y 2022, ZZZ “referrers” were hired via Prolific. They were shown profiles of randomly chosen performers. The profiles contained information on the score of the performers in the first round of the maths or empathy task as well as some biographical data. The referrers were asked whether they wished to “refer” the performer to a group of “selectors”. If they chose not to refer, they received a payoff of {{Constants.referrer_no_refer_bonus}}. If they chose to refer, they received a payoff of {{Constants.referrer_neither}}.</p>
+<br>
+<h5>Your role</h5>
+<p>Your task is to take on the role of "selector".</p> 
+<p>Shortly you will be shown, in sequence, randomly paired profiles of performers. Besides providing some biographical data, the performers’ profiles will display information on whether the performer is referred or not and, if referred, by whom. If a performer was not referred, this does not mean they were necessarily better or worse than the referred performers; just that they didn't have the chance to be referred. </p>
+<p>After seeing the profiles, you will be asked which performer you wish to select. Once you have made your selection, you will be shown the score of that performer in the second round of the task. Your payoff is tied to the second round score. Your maximum payoff per selection is {{ Constants.employer_reward }}. You will get a percentage of this sum equal to the percentage of correct answers given by the performer in the second round. For example, if they answered 75% of the questions correctly, you will get 75% of {{Constants.employer_reward}}, which is {{Constants.sixty_percent}}. Over this whole activity you will make 10 selection decisions and can therefore earn up to {{Constants.max_selection_reward}}.</p>
+<br>
+<h5>Referrer feedback</h5>
+<p>Having been shown the second round score of the performer, you will be asked to choose - if you wish - to punish or reward the referrer for referring the performer you chose. You can also do nothing. Remember, the referrer made the referral decision knowing only the first round score.</p>
+<p>If you do nothing, the referrer keeps their payoff of {{Constants.referrer_neither}}. If you punish the referrer, their payoff decreases to {{Constants.referrer_punishment}}. If you reward them, their payoff increases to {{Constants.referrer_reward}}. Note that the decision to reward or punish the referrer does not affect your payoff. </p>
+
+<br>
+<p>This diagram shows the sequence you will follow for each decision</p>
+<img align=center src="{% static 'selector_payoff_diagram.png' %}" width="60%" />
 
 <br>
 <br>

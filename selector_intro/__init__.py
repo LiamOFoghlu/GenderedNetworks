@@ -10,25 +10,30 @@ class Constants(BaseConstants):
     name_in_url = 'selector_intro'
     players_per_group = None
     num_rounds = 1
-    participation_fee = "€3.50"
-    employer_reward = "€0.50"
-    max_reward = 4*float(employer_reward[1:len(employer_reward)])   # assuming 4 rounds
-    max_reward = "€" + str(max_reward)
+    participation_fee = "£3.00"
+    employer_reward = "£0.24"  # reward per decision
+    num_decisions_per_task = 5
+    max_reward = (2*num_decisions_per_task)*float(employer_reward[1:len(employer_reward)]) + 1   # including belief bonus
+    max_reward = "£" + str(max_reward)
     if len(max_reward) == 4:
         max_reward = max_reward + "0"
-    referrer_punishment = "€0.90"
-    referrer_no_refer_bonus = "€1.00"
-    referrer_neither = "€1.25"
-    referrer_reward = "€1.50"
-    practice_performer_a = "Jenni"
-    practice_performer_b = "Ulrich"
-    practice_referrer_a = "Andreas"
-    practice_referrer_b = "Ulrika"
-    practice_performer_score = 0.5
-    fifty_percent = 0.5*float(employer_reward[1:len(employer_reward)])
-    fifty_percent = "€" + str(fifty_percent)
-    if len(fifty_percent) == 4:
-        fifty_percent = fifty_percent + "0"
+    max_selection_reward = (2*num_decisions_per_task)*float(employer_reward[1:len(employer_reward)])  
+    max_selection_reward = "£" + str(max_selection_reward)
+    if len(max_selection_reward) == 4:
+        max_selection_reward = max_selection_reward + "0"
+    referrer_punishment = "£0.90"
+    referrer_no_refer_bonus = "£1.00"
+    referrer_neither = "£1.25"
+    referrer_reward = "£1.50"
+    practice_performer_a = "Jennifer"
+    practice_performer_b = "William"
+    practice_referrer_a = "Andrew"
+    practice_referrer_b = "Rachel"
+    practice_performer_score = 0.8
+    sixty_percent = round(0.6*float(employer_reward[1:len(employer_reward)]), 2)
+    sixty_percent = "£" + str(sixty_percent)
+    if len(sixty_percent) == 4:
+        sixty_percent = sixty_percent + "0"
 
 
 class Subsession(BaseSubsession):
@@ -61,6 +66,12 @@ class Consent(Page):
         player.start_clocktime = time.strftime('%H:%M:%S', time.localtime(time_in))
         return 1
 
+    def vars_for_template(player):
+        template = "_static/consent_template.html"
+        return dict(
+            template = template
+        )
+
 class ProlificID(Page):
     form_model = 'player'
     form_fields = ['ProlificID']
@@ -78,10 +89,10 @@ class Practice_feedback(Page):
 
     def vars_for_template(player):
         employer_reward_num = float(Constants.employer_reward[1:len(Constants.employer_reward)])
-        practice_payoff = str(employer_reward_num * Constants.practice_performer_score)
+        practice_payoff = str(round(employer_reward_num * Constants.practice_performer_score, 2))
         if len(practice_payoff) < 4:
             practice_payoff = practice_payoff + "0"
-        practice_payoff = "€" + practice_payoff
+        practice_payoff = "£" + practice_payoff
         practice_performer_score = str(round(Constants.practice_performer_score*100)) + "%"
         if player.select == "Performer A":
             performer_name = Constants.practice_performer_a
