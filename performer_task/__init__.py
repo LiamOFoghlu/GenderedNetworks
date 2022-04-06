@@ -364,9 +364,7 @@ class task_page(Page):
         return dict(
             template = template,
             display_round = display_round,
-            task = task,
-            timeout = timeout
-            )
+            task = task            )
 
     def before_next_page(player, timeout_happened):
         current_round = player.round_number
