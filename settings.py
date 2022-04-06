@@ -34,18 +34,17 @@ PARTICIPANT_FIELDS = [
     'performer_maths_r',             # random maths profile
     'performer_childcare_r',           # random childcare profile
     'performer_task_order',          # 1 = maths first; 2 = childcare first
-    'performer_name_choices',        # a list with a random selection of common german first names
-    'referrer_round_numbers',       # a list definining the order in which maths and childcare tasks should be shown
+    'performer_name_choices',        # a list with a random selection of common English first names
     'referrer_start_epochtime',     # a scalar recording the epoch time the participant entered
     'referrer_task_rounds',         # a dictionary with key = task and value = round in which task is displayed
     'referrer_maths_r',             # random maths profile
     'referrer_childcare_r',           # random childcare profile
-    'referrer_task_order',          # 1 = maths first; 2 = childcare first
+    'referrer_treatment',          # 1 = maths first; 2 = childcare first
     'referrer_mathspractice_q1',
     'referrer_mathspractice_q2',
     'referrer_childcarepractice_q1',
     'referrer_childcarepractice_q2',
-    'referrer_any_referral',        # did the referrer make a referral?
+    'referrer_num_referrals',        # did the referrer make a referral?
     'referrer_name_choices',        # a list with a random selection of common german first names
     'selector_round_numbers',       # a list definining the order in which maths and childcare tasks should be shown
     'selector_start_epochtime',     # a scalar recording the epoch time the participant entered

@@ -20,8 +20,8 @@ class Constants(BaseConstants):
         reward_per_q = reward_per_q + ".00"
     elif len(reward_per_q) == 4:
         reward_per_q = reward_per_q + "0"
-    maths_timeout_seconds = 5*60    
-    childcare_timeout_seconds = 2*60   
+    maths_timeout_seconds = 200    
+    childcare_timeout_seconds = 70 
 
 
 class Subsession(BaseSubsession):
@@ -32,7 +32,7 @@ def creating_session(subsession):
         import itertools
 
         #randomise task order
-        t_o = itertools.cycle([1, 2])
+        t_o = itertools.cycle([1, 2]) # maths = 1, childcare = 2
         for player in subsession.get_players(): # iterate through the players
 
             # create dictionary that links task to round number, based on task_order 
@@ -59,104 +59,104 @@ class Player(BasePlayer):
     ## maths questions
     # round 1
     maths_question_1_1 = models.StringField(
-        label = "A shop has an offer: buy 8 kiwis, and every extra kiwi after that is half price. A customer goes to the shop and pays £4.50 for some kiwis. The full price of a kiwi is £0.50. How many does the customer buy?",
+        label = "A driver travels 12 miles in fifteen minutes. They accelerate and travel another 24 miles in thirty minutes. Reaching difficult terrain, they slow down and travel 8 miles for a further fifteen minutes. What is their average speed in miles per hour over this section of the journey?",
         choices = [
-            "9",
+            "19",
             "12",
-            "10",
-            "15"
+            "17", # correct
+            "21"
         ],
         widget = widgets.RadioSelectHorizontal
     ) 
     maths_question_1_2 = models.StringField(
-        label="A worker's regular pay is £20 per hour up to 30 hours. Overtime is twice the payment for regular time. If the worker was paid £720, how many hours overtime did they work?",
+        label="An inefficient factory produces 50 cars per week. On average, 10 per 50 has a fault. An inspector picks 2 cars per week to check. What is the probability both have faults?",
         choices = [
-            "34",
-            "32",
-            "28",
-            "33"
+            "0.037", # correct
+            "0.025",
+            "0.029",
+            "0.040"
         ],
         widget = widgets.RadioSelectHorizontal
     )
     maths_question_1_3 = models.StringField(
-        label="3 and 4/5 expressed as a decimal is:",
+        label = "A wizard has a 1 in 7 chance of killing a troll with a fireball, and can throw two fireballs a minute. A hobbit has a 1 in 4 chance of killing the troll with his sword and can strike the troll once every 2 minutes. An elf has a 1 in 9 chance of killing the troll with his spear and can strike every minute. A ranger has a 1 in 8 chance of killing a troll with his fists and can punch 4 times a minute. Who will kill the troll first?",
         choices = [
-            "3.40",
-            "3.45",
-            "3.80",
-            "3.50"
+            "The wizard",
+            "The hobbit",
+            "The elf",
+            "The ranger" # correct
+        ],
+         widget = widgets.RadioSelectHorizontal
+    )   
+    maths_question_1_4 = models.StringField(
+        label="Manchester United have a two in three chance of winning when Rashford plays and a two in five chance of winning when he doesn't. Rashford plays 33 matches out of 38 in a season. About how many matches should Manchester United win?",
+        choices = [
+            "22",
+            "24", # correct
+            "21", 
+            "27"
         ],
         widget = widgets.RadioSelectHorizontal
-    )
-    maths_question_1_4 = models.StringField(
-        label="Which of the following is the highest common factor of 18, 24, and 36?",
-        choices = [
-            "6",
-            "18",
-            "36",
-            "3"
-        ],
-        widget = widgets.RadioSelectHorizontal  
-    )    
+    ) 
     maths_question_1_5 = models.StringField(
-        label="Which of the following is equal to 3y(x + 3) - 2(x + 3) ?",
+        label="Salah can try and pass the defender and then shoot the ball, or he can try and shoot past the defender. If he passes the defender he will certainly score, if he shoots past the defender he has a 4 in 5 chance of scoring. If the defender is left-footed, Salah will pass him for sure if he tries. If the defender is right-footed, Salah will have a 1 in 2 chance of losing the ball if he tries to pass him. Salah should try to pass the defender if the chance of the defender being left-footed is no less than...",
         choices = [
-            "(x - 3)(x - 3)",
-            "2y(x + 3)",
-            "(x + 3)(3y - 2)",
-            "3y(x + 3)"
+            "8 in 10",
+            "6 in 10", # correct
+            "5 in 10", 
+            "7 in 10"
         ],
         widget = widgets.RadioSelectHorizontal  
     )    
 
     # round 2
     maths_question_2_1 = models.StringField(
-       label="Items bought by a trader for £80 are sold for £100. The profit expressed as a percentage of cost price is: ",
+       label="A trader takes out a loan of £120 with 5 percent interest. They buy a painting with this money and sell it for £238. There is a £10 transaction fee. What is the trader's profit as a percentage of total costs?",
     choices = [
-        "100%",
-        "20%",
-        "25%",
-        "50%"
+        "79%",
+        "75%", # correct
+        "72%", 
+        "70%" 
     ],
     widget = widgets.RadioSelectHorizontal
     )
     maths_question_2_2 = models.StringField(
-        label="A shopper bought five pineapples which cost £2 each, and 4 lemons which cost £0.75 each. How much did they spend?",
-    choices = [
-        "£10",
-        "£16",
-        "£20",
-        "£13"
-    ],
-    widget = widgets.RadioSelectHorizontal
-    )
-    maths_question_2_3 = models.StringField(
-        label = "A hairdresser has an offer: every third visit is free. They charge £48 for a haircut. Last year Sarah paid £144 for a haircut. How many times did she go?",
+        label="Tomorrow there is a one in nine chance it rains and a one in seven chance that a letter arrives in the post. What is the probability that it rains and a letter doesn't arrive in the post?",
         choices = [
-            "Two times",
-            "Three times",
-            "Four times",
-            "Five times"
+            "0.095", # correct
+            "0.968",
+            "0.016",
+            "0.143"
         ],
-         widget = widgets.RadioSelectHorizontal
+        widget = widgets.RadioSelectHorizontal  
     )     
-    maths_question_2_4 = models.StringField(
-        label="What is the average of these numbers: 5, 9, 7",
+    maths_question_2_3 = models.StringField(
+        label="A data company charges £12 per hour when average server load is below 250MB, with a £2 per hour surcharge when it is above 250MB. For a 24 hour period, the company charges a client £16 in surcharges. If the client randomly inspects an hour's server load, what is the chance it exceeds 250MB?",
         choices = [
-            "7",
-            "9",
-            "6",
-            "5"
+            "1 in 8",
+            "1 in 6", 
+            "1 in 4",
+            "1 in 3" # correct
+        ],
+        widget = widgets.RadioSelectHorizontal
+    )
+    maths_question_2_4 = models.StringField(
+        label="When it snows a car's transmission and connecting rod will break. When it rains, a car's transmission or oil will break. When it hails a car's air duct or camshaft will break. And when there is strong wind, a car's connecting rod and camshaft will break. On one journey, the transmission and camshaft break. On the journey there was...",
+        choices = [
+            "rain and snow",
+            "rain and hail", # correct
+            "strong wind and snow",
+            "hail and strong wind"
         ],
         widget = widgets.RadioSelectHorizontal
     )    
     maths_question_2_5 = models.StringField(
-        label= "A woman walks from the bottom to the top of a hill. She starts at 9.40am and arrives at the top at 10.20 am. She takes a rest for ten minutes. Then she walks back down. On the way down she walks twice as fast as she did on the way up. What time is it when she reaches the bottom of the hill?",
+        label= "Messi cares only about winning, but Neymar is a glory hunter. Messi has the ball at the edge of the box. If he shoots now, he has a 3 in 10 chance of scoring. If he passes to Neymar, Neymar might shoot even though he has only a 1 in 8 chance of scoring. But if Neymar passes back to Messi, then Messi will definitely score. Messi should pass the ball if the chance of Neymar passing it back is at least…",
         choices = [
-            "11.20",
-            "10.40",
-            "10.50",
-            "11.10"
+            "1 in 4",
+            "1 in 2",
+            "1 in 5", # correct
+            "3 in 10"
         ],
         widget = widgets.RadioSelectHorizontal
     )      
@@ -274,11 +274,11 @@ class instructions(Page):
         if current_round in player.participant.performer_task_rounds['maths']: 
             template = "performer_task/maths_instructions_template.html"  
             task = "Maths"
-            timeout = round(Constants.maths_timeout_seconds/60)
+            timeout = Constants.maths_timeout_seconds
         elif current_round in player.participant.performer_task_rounds['childcare']: 
             template = "performer_task/childcare_instructions_template.html"  
             task = "Childcare"
-            timeout = round(Constants.childcare_timeout_seconds/60)
+            timeout = Constants.childcare_timeout_seconds
         return dict(
             template = template,
             task_order_alph = task_order_alph,
@@ -347,7 +347,6 @@ class task_page(Page):
         current_round = player.round_number
         if current_round in player.participant.performer_task_rounds['maths']: 
             task = 'Maths'
-            timeout = round(Constants.maths_timeout_seconds/60)
             if (current_round == 1 or current_round == 3):
                 template = "performer_task/maths_round_1_template.html"  
                 display_round = 1
@@ -356,7 +355,6 @@ class task_page(Page):
                 display_round = 2
         elif current_round in player.participant.performer_task_rounds['childcare']:
             task = 'Childcare'
-            timeout = round(Constants.childcare_timeout_seconds/60)
             if (current_round == 1 or current_round == 3):
                 template = "performer_task/childcare_round_1_template.html"  
                 display_round = 1
@@ -379,29 +377,29 @@ class task_page(Page):
         # maths - round 1
         if current_round in player.participant.performer_task_rounds['maths']: 
             if (current_round == 1 or current_round == 3):
-                if player.maths_question_1_1 == "10":
+                if player.maths_question_1_1 == "17":
                     correct_answers = correct_answers + 1
-                if player.maths_question_1_2 == "33":
+                if player.maths_question_1_2 == "0.037":
                     correct_answers = correct_answers + 1       
-                if player.maths_question_1_3 == "3.80":
+                if player.maths_question_1_3 == "The ranger":
                     correct_answers = correct_answers + 1 
-                if player.maths_question_1_4 == "6":
+                if player.maths_question_1_4 == "24":
                     correct_answers = correct_answers + 1  
-                if player.maths_question_1_5 == "(x + 3)(3y - 2)":
+                if player.maths_question_1_5 == "6 in 10":
                     correct_answers = correct_answers + 1  
                 player.correct_answers = correct_answers
 
         # maths - round 2
             elif (current_round == 2 or current_round == 4):
-                if player.maths_question_2_1 == "25%":
+                if player.maths_question_2_1 == "75%":
                     correct_answers = correct_answers + 1
-                if player.maths_question_2_2 == "£13":
+                if player.maths_question_2_2 == "0.095":
                     correct_answers = correct_answers + 1       
-                if player.maths_question_2_3 == "Four times":
+                if player.maths_question_2_3 == "1 in 3":
                     correct_answers = correct_answers + 1 
-                if player.maths_question_2_4 == "7":
+                if player.maths_question_2_4 == "rain and hail":
                     correct_answers = correct_answers + 1  
-                if player.maths_question_2_5 == "10.50":
+                if player.maths_question_2_5 == "1 in 5":
                     correct_answers = correct_answers + 1  
                 player.correct_answers = correct_answers
 

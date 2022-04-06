@@ -12,9 +12,9 @@ class Constants(BaseConstants):
     name_in_url = 'selector_task'
     players_per_group = None
     tasks = ['maths', 'childcare']
-    rounds_per_task = 5
+    rounds_per_task = 4
     num_rounds = len(tasks) * rounds_per_task # this the total number of rounds that will be done by the player (so, if they do 3 rounds of Task A and 3 rounds of Task B, then they will do 3 + 3 = 6 rounds overall)
-    employer_reward = "£0.24"  # reward per decision
+    employer_reward = "£0.40"  # reward per decision
     referrer_punishment = "£0.90"
     referrer_neither = "£1.25"
     referrer_reward = "£1.50"
@@ -133,7 +133,7 @@ class Player(BasePlayer):
         widget = widgets.RadioSelectHorizontal
     ) 
     maths_question_2 = models.StringField(
-        label="A worker's regular pay is £3 per hour up to 40 hours. Overtime is twice the payment for regular time. If the worker was paid £168, how many hours overtime did they work?",
+        label="A worker's regular pay is £3 per hour up to 40 hours. Overtime is twice the payment for regular time. If the worker was paid £168, how many hours did they work?",
         choices = [
             "8",
             "16",

@@ -11,7 +11,7 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     participation_fee = "£3.00"
-    employer_reward = "£0.24"  # reward per decision
+    employer_reward = "£0.40"  # reward per decision
     num_decisions_per_task = 5
     max_reward = (2*num_decisions_per_task)*float(employer_reward[1:len(employer_reward)]) + 1   # including belief bonus
     max_reward = "£" + str(max_reward)
@@ -69,7 +69,8 @@ class Consent(Page):
     def vars_for_template(player):
         template = "_static/consent_template.html"
         return dict(
-            template = template
+            template = template,
+            study_specific = ""
         )
 
 class ProlificID(Page):

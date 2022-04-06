@@ -21,9 +21,9 @@ def creating_session(subsession):
 
         # study name ==> these names are taken from the top 100 baby names in England and Wales in 1994. They are the odd-ranked names (1, 3, 5, etc) -- the referrer name list is the even-ranked (2, 4, 6 etc)
         if Constants.session_gender == "female":
-            names = ["Rebecca", "Jessica", "Hannah", "Amy", "Laura", "Chloe", "Lucy", "Bethany", "Megan", "Rachel", "Danielle", "Abigail", "Stephanie", "Victoria", "Georgia", "Natalie", "Shannon", "Nicole", "Kirsty", "Melissa", "Hayley", "Katherine", "Grace", "Molly", "Jasmine", "Kelly", "Leah", "Francesca", "Kate", "Claire", "Sian", "Lydia", "Stacey", "Amelia", "Lisa", "Ella", "Chantelle", "Daisy", "Rhiannon", "Joanna", "Jemma"]
+            names = ["Rebecca", "Jessica", "Hannah", "Amy", "Laura", "Chloe", "Lucy", "Bethany", "Megan", "Rachel", "Danielle", "Abigail", "Stephanie", "Victoria", "Georgia", "Natalie", "Shannon", "Nicole", "Kirsty", "Melissa", "Hayley", "Catherine", "Grace", "Molly", "Jasmine", "Kelly", "Leah", "Francesca", "Kate", "Claire", "Sian", "Lydia", "Stacey", "Amelia", "Lisa", "Chantelle", "Daisy", "Rhiannon", "Joanna", "Phoebe"]
         if Constants.session_gender == "male":
-            names = ["Thomas", "Jack", "Matthew", "Joshua", "Samuel", "Adam", "Alexander", "Benjamin", "William", "George", "Oliver", "Robert", "Nathan", "Jonathan", "Callum", "Jacob", "Scott", "John", "Kyle", "Mark", "Edward", "Richard", "Peter", "Lee", "Steven", "Craig", "Dale", "Cameron", "Dean", "Shane", "Patrick", "Shaun", "Simon", "Mitchell", "Philip", "Dylan", "Martin", "Karl", "Greg", "Ian"]
+            names = ["Thomas", "Jack", "Matthew", "Joshua", "Samuel", "Adam", "Alexander", "Benjamin", "William", "George", "Oliver", "Robert", "Nathan", "Jonathan", "Callum", "Jacob", "Scott", "John", "Kyle", "Mark", "Edward", "Richard", "Peter", "Lee", "Craig", "Dale", "Cameron", "Dean", "Shane", "Patrick", "Shaun", "Simon", "Mitchell", "Philip", "Dylan", "Martin", "Greg", "Ian", "Fred", "Rory"]
         for player in subsession.get_players():
             random.shuffle(names)
             choices = names[0:5]

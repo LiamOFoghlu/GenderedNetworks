@@ -1,6 +1,4 @@
 from otree.api import *
-from otree.models import subsession
-
 
 doc = """
 Your app description
@@ -10,19 +8,30 @@ Your app description
 class Constants(BaseConstants):
     name_in_url = 'referrer_task'
     players_per_group = None
-    tasks = ['maths', 'childcare']
-    num_rounds = len(tasks)
+    num_rounds = 4
 
-    # referral data
+    ## get referral data
     import pandas as pd
-    df_maths = pd.read_csv("_static/candidate_df_maths.csv")
+    df_maths = pd.read_csv("_static/performer_df_maths.csv")
     df_index_maths = list(range(len(df_maths))) 
-    df_childcare = pd.read_csv("_static/candidate_df_childcare.csv")
+    df_childcare = pd.read_csv("_static/performer_df_childcare.csv")
     df_index_childcare = list(range(len(df_childcare))) 
 
+    ## create a vector to randomise treatment
+    num_participants = 500          # note this doesn't really have to be the number of participants, it just indirectly determines the number of blocks. Still, good practice to set it hgiher than expected number of participants
+    num_blocks = -1*( -num_participants // 2) # I'm gonna create blocks within which the treatment is exactly balanced ==> half in maths and half in childcare
+    treatment_block = list(range(1,3)) # this is the block: there are two elements, 1= maths, 2 = childcare
+    treatment_assignment = [] # a ist of all append treatment blocks
+    for i in range(num_blocks):
+        treatment_assignment = treatment_assignment + treatment_block # create a list of appended treatment blocks
+    import random    
+    random.shuffle(treatment_assignment) 
+    for i in range(len(treatment_assignment)):
+            if treatment_assignment[i] == 1:
+                treatment_assignment[i] = "maths"
+            else:
+                treatment_assignment[i] = "childcare"
 
-def record_profile_info(df, r, column):
-    return df.loc[r,column]
 
 class Subsession(BaseSubsession):
     pass
@@ -31,18 +40,14 @@ def creating_session(subsession):
     if subsession.round_number == 1:
         print("executing referral task subsession")
         import itertools, random
-        t_o = itertools.cycle([1, 2])
+        treatment_assignment = itertools.cycle(Constants.treatment_assignment) # 1 = maths; 2 = childcare
         for player in subsession.get_players(): # iterate through the players
 
             # set referrers to false (takes a value of true if any referral is made)
-            player.participant.referrer_any_referral = False
+            player.participant.referrer_num_referrals = 0
 
-            # task order
-            player.participant.referrer_task_order = next(t_o)
-            player.participant.referrer_round_numbers = list(range(1, Constants.num_rounds + 1))
-            if player.participant.referrer_task_order == 2:
-                player.participant.referrer_round_numbers.reverse()
-            player.participant.referrer_task_rounds = dict(zip(Constants.tasks, player.participant.referrer_round_numbers))
+            # treatment assignment
+            player.participant.referrer_treatment = next(treatment_assignment)
 
             # maths questions
             maths_qs = list(range(5))
@@ -56,29 +61,30 @@ def creating_session(subsession):
             player.participant.referrer_childcarepractice_q1 = childcare_qs[0]
             player.participant.referrer_childcarepractice_q2 = childcare_qs[1]
 
-            # load profile
-            player.participant.referrer_maths_r = random.choice(list(range(len(Constants.df_index_maths))))      # randomly choose a SINGLE profile (i.e. row in data frame)
-            player.participant.referrer_childcare_r = random.choice(list(range(len(Constants.df_index_childcare))))  # randomly choose a SINGLE profile (i.e. row in data frame)
-        
+            # assign peformers to review
+            player.participant.referrer_maths_r = random.sample(list(range(len(Constants.df_index_maths))), Constants.num_rounds)      # randomly sample performers
+            player.participant.referrer_childcare_r = random.sample(list(range(len(Constants.df_index_childcare))), Constants.num_rounds)   # randomly sample performers
+            print(player.participant.code, player.participant.referrer_treatment, "maths index: ",  player.participant.referrer_maths_r, "childcare index: ", player.participant.referrer_childcare_r)
+
 
 class Group(BaseGroup):
     pass
 
 
 class Player(BasePlayer):
-    task_order = models.StringField()
-    task_in_round = models.StringField()
-    candidate_refer = models.StringField(
+    treatment = models.StringField()
+    performer_refer = models.StringField(
         label = "",
         choices = ['Yes','No'],
         widget=widgets.RadioSelectHorizontal
     )
 
     # candidate attributes
-    candidate_name = models.StringField()
-    candidate_score = models.IntegerField()
-    candidate_age = models.IntegerField()
-    candidate_profile_index = models.IntegerField()
+    performer_name = models.StringField()
+    performer_score = models.IntegerField()
+    performer_age = models.IntegerField()
+    performer_profile_index = models.IntegerField()
+    performer_participant_code = models.StringField()
 
     ## maths questions
     maths_question_1 = models.StringField(
@@ -126,7 +132,7 @@ class Player(BasePlayer):
         choices = [
             "(x - 3)(x - 3)",
             "2y(x + 3)",
-            "(x + 3)(3y – 2",
+            "(x + 3)(3y - 2",
             "3y(x + 3)"
         ],
         widget = widgets.RadioSelectHorizontal  
@@ -186,10 +192,11 @@ class practice_task(Page):
     form_model = 'player'
 
     def is_displayed(player):
-        return (player.round_number == 1 or player.round_number == ((Constants.num_rounds)/2) + 1)
+        # display practice page only in first round
+        return (player.round_number == 1)
 
     def get_form_fields(player: Player):
-        if player.round_number == player.participant.referrer_task_rounds['maths']: 
+        if player.participant.referrer_treatment == "maths":
             questions = ['maths_question_1','maths_question_2','maths_question_3','maths_question_4','maths_question_5']
             form_fields = [                                  
                         questions[player.participant.referrer_mathspractice_q1], # an index, range 1:5 which subsets from the questions list above
@@ -205,74 +212,64 @@ class practice_task(Page):
             return form_fields
 
     def vars_for_template(player):
-        if player.round_number == 1:
-            page_order = "first"
-        else: 
-            page_order = "second"
-        if player.round_number == player.participant.referrer_task_rounds['maths']: 
+        if player.participant.referrer_treatment == "maths":
             practice_template = 'referrer_task/maths_template.html'
             task = "maths"
-            timer = "five"
+            timer = "!!"
         else:
             practice_template = 'referrer_task/childcare_template.html'
             task = "childcare"
-            timer = "three"
+            timer = "!!"
         return dict(
                 task = task,
                 practice_template = practice_template,
-                page_order = page_order, 
-                timer = timer
+                timer = timer,
+                num_peformers = Constants.num_rounds
                 )
 
 
 class refer_task(Page):
     form_model = 'player'
     form_fields = [
-        'candidate_refer'
+        'performer_refer'
     ]
 
     def vars_for_template(player):
         refer_table_template = 'referrer_task/refer_table_template.html'
-        current_round = player.round_number 
-        if current_round ==  player.participant.referrer_task_rounds['maths']: 
+        if player.participant.referrer_treatment == "maths":
             df = Constants.df_maths
-            r = player.participant.referrer_maths_r
+            r = player.participant.referrer_maths_r[player.round_number - 1]
             refer_table_template = 'referrer_task/refer_table_template.html'
             task = "maths"
-        if current_round ==  player.participant.referrer_task_rounds['childcare']: 
+        else: 
             df = Constants.df_childcare
-            r = player.participant.referrer_childcare_r
+            r = player.participant.referrer_childcare_r[player.round_number - 1]
             task = "childcare"
         return dict(
             task = task,
-            candidate_name = record_profile_info(df, r, 'candidate_name'),
-            score = int(record_profile_info(df, r, 'candidate_score')),
-            age = record_profile_info(df, r, 'candidate_age'),
+            performer_name = df.loc[r,'performer_name'],
+            score = int(df.loc[r, 'performer_score']),
+            age = df.loc[r, 'performer_age'],
             refer_table_template = refer_table_template
         )
 
-
     def before_next_page(player, timeout_happened): # need to include "timout_happned" since otherwise it crashes. This is a useless var so should be ignored. But seems to be necessary to avoid crashing.
-        if player.round_number == player.participant.referrer_task_rounds['maths']: 
+        if player.participant.referrer_treatment == "maths":
             df = Constants.df_maths
-            r = player.participant.referrer_maths_r
-            player.task_in_round = "maths"
+            r = player.participant.referrer_maths_r[player.round_number - 1]
+            player.treatment = "maths"
         else:
             df = Constants.df_childcare
-            r = player.participant.referrer_childcare_r
-            player.task_in_round = "childcare"
-        player.candidate_name = record_profile_info(df, r, 'candidate_name')
-        player.candidate_score = int(record_profile_info(df, r, 'candidate_score'))
-        player.candidate_age = int(record_profile_info(df, r, 'candidate_age'))
-        player.candidate_profile_index = r
-        if player.participant.referrer_task_order == 1:
-            player.task_order = "maths_first"
-        else:
-            player.task_order = "childcare_first"
-        if player.candidate_refer == "Yes":
-            player.participant.referrer_any_referral = True
-        print(player.participant.referrer_any_referral)
-        
+            r = player.participant.referrer_childcare_r[player.round_number - 1]
+            player.treatment = "childcare"
+        player.performer_name = df.loc[r, 'performer_name']
+        player.performer_score = int(df.loc[r, 'performer_score'])
+        player.performer_age = int(df.loc[r, 'performer_age'])
+        player.performer_participant_code = df.loc[r, 'performer_participant_code']
+        player.performer_profile_index = r
+        if player.performer_refer == "Yes":
+            player.participant.referrer_num_referrals += 1    
+            print(player.participant.referrer_num_referrals)    
 
 
 page_sequence = [practice_task, refer_task]

@@ -11,10 +11,10 @@ class Constants(BaseConstants):
     players_per_group = None
     num_rounds = 1
     participation_fee = "£2.25"
-    no_refer_bonus = "£1.00"
-    refer_bonus = "£1.25"
-    punishment_bonus = "£0.90"
-    reward_bonus = "£1.50"
+    no_refer_bonus = "£0.50"
+    refer_bonus = "£0.60"
+    punishment_bonus = "£0.20"
+    reward_bonus = "£0.80"
     total_max_reward_bonus = 2*float(reward_bonus[1:len(reward_bonus)])
     total_max_reward_bonus = "£" + str(total_max_reward_bonus)
     if len(total_max_reward_bonus) == 4:
@@ -52,8 +52,11 @@ class Consent(Page):
 
     def vars_for_template(player):
         template = "_static/consent_template.html"
+        study_specific = " Anonymised information on your performance in this study may also be shown to participants in a future study."
         return dict(
-            template = template
+            template = template,
+            study_specific = study_specific,
+            task = player.participant.referrer_treatment
         )
 
 class ProlificID(Page):
@@ -61,7 +64,18 @@ class ProlificID(Page):
     form_fields = ['ProlificID']
 
 class Instructions(Page):
-    pass
+    def vars_for_template(player):
+        if player.participant.referrer_treatment == "maths":
+            task_details = "maths task. The performers had to answer several maths questions."
+            task = "maths"
+        else:
+            task_details = "childcare task. The performers had to read a text describing how to care for young children and then answer questions about proper childcare practices and childhood developmental stages."
+            task = "childcare"
+        return dict(
+            task_details = task_details,
+            task = task,
+            number_of_rounds = 4
+        )
 
 class Practice_referral(Page):
     form_model = 'player'
