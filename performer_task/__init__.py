@@ -99,7 +99,7 @@ class Player(BasePlayer):
         widget = widgets.RadioSelectHorizontal
     ) 
     maths_question_1_5 = models.StringField(
-        label="Salah can try and pass the defender and then shoot the ball, or he can try and shoot past the defender. If he passes the defender he will certainly score, if he shoots past the defender he has a 4 in 5 chance of scoring. If the defender is left-footed, Salah will pass him for sure if he tries. If the defender is right-footed, Salah will have a 1 in 2 chance of losing the ball if he tries to pass him. Salah should try to pass the defender if the chance of the defender being left-footed is no less than...",
+        label="Salah can try and dribble past the defender and then shoot the ball, or he can try and shoot past the defender. If he successfully dribbles past the defender he will certainly score, if he shoots past the defender he has a 4 in 5 chance of scoring. If the defender is left-footed, Salah can dribble past him for sure if he tries. If the defender is right-footed, Salah will have a 1 in 2 chance of losing the ball if he tries to dribble past him. Salah should try to dribble past the defender if the chance of the defender being left-footed is no less than...",
         choices = [
             "8 in 10",
             "6 in 10", # correct
