@@ -21,7 +21,7 @@ class Constants(BaseConstants):
     elif len(reward_per_q) == 4:
         reward_per_q = reward_per_q + "0"
     maths_timeout_seconds = 200   
-    childcare_timeout_seconds = 70
+    childcare_timeout_seconds = 80
 
 
 class Subsession(BaseSubsession):
