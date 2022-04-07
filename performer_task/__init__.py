@@ -45,6 +45,10 @@ def creating_session(subsession):
             round_numbers_list2 = round_numbers[middle_index:]
             round_numbers_list = [round_numbers_list1, round_numbers_list2]
             player.participant.performer_task_rounds = dict(zip(Constants.tasks, round_numbers_list))
+            if t_o == 1:
+                player.participant.task_order == "Maths first"
+            else:
+                player.participant.task_order == "Childcare first"
 
 
 class Group(BaseGroup):
@@ -52,7 +56,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    task_order = models.IntegerField()
+    task_order = models.StringField()
     timeout_occured = models.BooleanField()
     correct_answers = models.IntegerField()
 
