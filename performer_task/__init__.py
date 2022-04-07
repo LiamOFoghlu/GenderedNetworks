@@ -20,8 +20,8 @@ class Constants(BaseConstants):
         reward_per_q = reward_per_q + ".00"
     elif len(reward_per_q) == 4:
         reward_per_q = reward_per_q + "0"
-    maths_timeout_seconds = 200    
-    childcare_timeout_seconds = 70 
+    maths_timeout_seconds = 200   
+    childcare_timeout_seconds = 70
 
 
 class Subsession(BaseSubsession):
@@ -59,27 +59,27 @@ class Player(BasePlayer):
     ## maths questions
     # round 1
     maths_question_1_1 = models.StringField(
-        label = "A driver travels 12 miles in fifteen minutes. They accelerate and travel another 24 miles in thirty minutes. Reaching difficult terrain, they slow down and travel 8 miles for a further fifteen minutes. What is their average speed in miles per hour over this section of the journey?",
+        label = "A hiker walks from the bottom to the top of a hill. They start at 9.40am and arrive at the top at 10.20 am. They take a rest for ten minutes. Then they walk back down. On the way down, the hiker walks twice as fast as they did on the way up. What time is it when they reach the bottom of the hill?",
         choices = [
-            "19",
-            "12",
-            "17", # correct
-            "21"
+            "10.50", # correct
+            "10.40",
+            "11.00", 
+            "11.10"
         ],
         widget = widgets.RadioSelectHorizontal
-    ) 
+    )   
     maths_question_1_2 = models.StringField(
-        label="An inefficient factory produces 50 cars per week. On average, 10 per 50 has a fault. An inspector picks 2 cars per week to check. What is the probability both have faults?",
+        label="An inefficient factory produces 50 cars per week. On average, 10 per 50 has a fault. An inspector picks 2 cars per week to check. What is the probability both cars have faults?",
         choices = [
+            "0.012", 
             "0.037", # correct
-            "0.025",
-            "0.029",
+            "0.099",
             "0.040"
         ],
         widget = widgets.RadioSelectHorizontal
     )
     maths_question_1_3 = models.StringField(
-        label = "A wizard has a 1 in 7 chance of killing a troll with a fireball, and can throw two fireballs a minute. A hobbit has a 1 in 4 chance of killing the troll with his sword and can strike the troll once every 2 minutes. An elf has a 1 in 9 chance of killing the troll with his spear and can strike every minute. A ranger has a 1 in 8 chance of killing a troll with his fists and can punch 4 times a minute. Who will kill the troll first?",
+        label = "A wizard has a 1 in 16 chance of killing a troll with his fireball, and can throw one fireball every minute. A hobbit has a 1 in 12 chance of killing the troll with his sword and can strike twice per minute. An elf has a 1 in 6 chance of shooting the troll with his bow and can shoot once per minute. A ranger has a 1 in 8 chance of killing a troll with his fists and can punch twice a minute. Who will kill the troll first?",
         choices = [
             "The wizard",
             "The hobbit",
@@ -89,42 +89,42 @@ class Player(BasePlayer):
          widget = widgets.RadioSelectHorizontal
     )   
     maths_question_1_4 = models.StringField(
-        label="Manchester United have a two in three chance of winning when Rashford plays and a two in five chance of winning when he doesn't. Rashford plays 33 matches out of 38 in a season. About how many matches should Manchester United win?",
+        label="Manchester United have a two in three chance of winning when Rashford plays and a one in four chance of winning when he doesn't. Rashford plays 30 matches out of 38 in a season. About how many matches should Manchester United win?",
         choices = [
-            "22",
-            "24", # correct
-            "21", 
-            "27"
+            "24", 
+            "22", # correct
+            "20", 
+            "23"
         ],
         widget = widgets.RadioSelectHorizontal
     ) 
     maths_question_1_5 = models.StringField(
-        label="Salah can try and dribble past the defender and then shoot the ball, or he can try and shoot past the defender. If he successfully dribbles past the defender he will certainly score, if he shoots past the defender he has a 4 in 5 chance of scoring. If the defender is left-footed, Salah can dribble past him for sure if he tries. If the defender is right-footed, Salah will have a 1 in 2 chance of losing the ball if he tries to dribble past him. Salah should try to dribble past the defender if the chances of the defender being left-footed are no less than...",
+        label= "A shop has an offer: buy 8 kiwis, and every extra kiwi after that is half price. A customer goes to the shop and pays £5.50 for some kiwis. The full price of a kiwi is £0.50. How many do they buy?",
         choices = [
-            "8 in 10",
-            "6 in 10", # correct
-            "5 in 10", 
-            "7 in 10"
+            "10",
+            "12",
+            "16",
+            "14"  # correct
         ],
-        widget = widgets.RadioSelectHorizontal  
-    )    
+        widget = widgets.RadioSelectHorizontal
+    )      
 
     # round 2
     maths_question_2_1 = models.StringField(
-       label="A trader takes out a loan of £120 with 5 percent interest. They buy a painting with this money and sell it for £238. There is a £10 transaction fee. What is the trader's profit as a percentage of total costs?",
+       label="A trader takes out a loan of £120 with 10 percent interest. They buy a painting with this money and sell it for £165. What is the trader's profit as a percentage of total costs?",
     choices = [
-        "79%",
-        "75%", # correct
-        "72%", 
-        "70%" 
+        "15%",
+        "25%", # correct
+        "35%", 
+        "40%" 
     ],
     widget = widgets.RadioSelectHorizontal
     )
     maths_question_2_2 = models.StringField(
         label="Tomorrow there is a one in nine chance it rains and a one in seven chance that a letter arrives in the post. What is the probability that it rains and a letter doesn't arrive in the post?",
         choices = [
+            "0.968", 
             "0.095", # correct
-            "0.968",
             "0.016",
             "0.143"
         ],
@@ -141,6 +141,16 @@ class Player(BasePlayer):
         widget = widgets.RadioSelectHorizontal
     )
     maths_question_2_4 = models.StringField(
+        label="On windy days an archer hits the target two out of every five shots. On still days they hit the target three out of every five shots. On a still day they hit the target 225 times. How many shots did they take?",
+        choices = [
+            "325",
+            "350", 
+            "375", # correct
+            "400"
+        ],
+        widget = widgets.RadioSelectHorizontal  
+    )    
+    maths_question_2_5 = models.StringField(
         label="When it snows a car's transmission and connecting rod will break. When it rains, a car's transmission or oil will break. When it hails a car's air duct or camshaft will break. And when there is strong wind, a car's connecting rod and camshaft will break. On one journey, the transmission and camshaft break. On the journey there was...",
         choices = [
             "rain and snow",
@@ -150,16 +160,6 @@ class Player(BasePlayer):
         ],
         widget = widgets.RadioSelectHorizontal
     )    
-    maths_question_2_5 = models.StringField(
-        label= "Messi cares only about winning, but Neymar is a glory hunter. Messi has the ball at the edge of the box. If he shoots now, he has a 3 in 10 chance of scoring. If he passes to Neymar, Neymar might shoot even though he has only a 1 in 8 chance of scoring. But if Neymar passes back to Messi, then Messi will definitely score. Messi should pass the ball if the chance of Neymar passing it back is at least…",
-        choices = [
-            "1 in 4",
-            "1 in 2",
-            "1 in 5", # correct
-            "3 in 10"
-        ],
-        widget = widgets.RadioSelectHorizontal
-    )      
 
     ## childcare questions
     # round 1
@@ -168,6 +168,7 @@ class Player(BasePlayer):
         choices = [
             "Once a day",
             "Once a week",
+            "Twice a day",
             "Two to three times a week"
         ],
         widget = widgets.RadioSelectHorizontal
@@ -175,6 +176,7 @@ class Player(BasePlayer):
     childcare_question_1_2 = models.StringField(
         label= "Women should continue on-demand, frequent breastfeeding until the child is:",
         choices = [
+            "Six months old",
             "One year old",
             "Two years old",
             "One and a half years old"
@@ -184,6 +186,7 @@ class Player(BasePlayer):
     childcare_question_1_3 = models.StringField(
         label= "Newborn babies…",
         choices = [
+            "Do not dream when they sleep",
             "Do not move about much when they sleep",
             "Wake up about once a night",
             "Sleep in cycles that last about one hour"
@@ -195,13 +198,15 @@ class Player(BasePlayer):
         choices = [
             "The first month of their lives",
             "The first three months of their lives",
-            "The first six months of their lives"
+            "The first six months of their lives",
+            "The first nine months of their lives"
         ],
         widget = widgets.RadioSelectHorizontal
     )        
     childcare_question_1_5 = models.StringField(
         label= "Babies can be calmed by...",
         choices = [
+            "Squeezing their forearms",
             "Moistening their ears",
             "Stroking their back",
             "Tickling their feet"
@@ -215,7 +220,8 @@ class Player(BasePlayer):
         choices = [
             "Shouldn't be active for more than one hour a day",
             "Should be active at least three hours a day",
-            "Shouldn't jump or skip too much"
+            "Shouldn't jump or skip too much",
+            "Should stretch their legs three times a week"
         ],
         widget = widgets.RadioSelectHorizontal
     ) 
@@ -224,7 +230,8 @@ class Player(BasePlayer):
         choices = [
             "Combine multiple words",
             "Speak in full sentences",
-            "Only use nouns"
+            "Only use nouns",
+            "Use the future tense"
         ],
         widget = widgets.RadioSelectHorizontal
     )      
@@ -233,22 +240,25 @@ class Player(BasePlayer):
         choices = [
             "Usually can't run yet",
             "Can't grip objects",
-            "Can walk backwards"
+            "Can walk backwards",
+            "Can throw small weights several metres"
         ],
         widget = widgets.RadioSelectHorizontal
     )      
     childcare_question_2_4 = models.StringField(
-        label= "Two-year old toddlers can...",
+        label= "By the time they are two years old toddlers can...",
         choices = [
             "Ask questions",
             "Use pronouns for themselves and others",
-            "Understand instructions"
+            "Understand instructions",
+            "Use relative clauses"
         ],
         widget = widgets.RadioSelectHorizontal
     )           
     childcare_question_2_5 = models.StringField(
         label= "Toddlers who meet other toddlers...",
         choices = [
+            "Often fight with them",
             "Completely ignore them",
             "Like to interact and play with them",
             "Play alongside but separate to them"
@@ -274,11 +284,11 @@ class instructions(Page):
         if current_round in player.participant.performer_task_rounds['maths']: 
             template = "performer_task/maths_instructions_template.html"  
             task = "Maths"
-            timeout = Constants.maths_timeout_seconds
+            timeout = str(Constants.maths_timeout_seconds) + " seconds"
         elif current_round in player.participant.performer_task_rounds['childcare']: 
             template = "performer_task/childcare_instructions_template.html"  
             task = "Childcare"
-            timeout = Constants.childcare_timeout_seconds
+            timeout = str(Constants.childcare_timeout_seconds) + " seconds"
         return dict(
             template = template,
             task_order_alph = task_order_alph,
@@ -375,29 +385,29 @@ class task_page(Page):
         # maths - round 1
         if current_round in player.participant.performer_task_rounds['maths']: 
             if (current_round == 1 or current_round == 3):
-                if player.maths_question_1_1 == "17":
+                if player.maths_question_1_1 == "10.50":
                     correct_answers = correct_answers + 1
                 if player.maths_question_1_2 == "0.037":
                     correct_answers = correct_answers + 1       
                 if player.maths_question_1_3 == "The ranger":
                     correct_answers = correct_answers + 1 
-                if player.maths_question_1_4 == "24":
+                if player.maths_question_1_4 == "22":
                     correct_answers = correct_answers + 1  
-                if player.maths_question_1_5 == "6 in 10":
+                if player.maths_question_1_5 == "14":
                     correct_answers = correct_answers + 1  
                 player.correct_answers = correct_answers
 
         # maths - round 2
             elif (current_round == 2 or current_round == 4):
-                if player.maths_question_2_1 == "75%":
+                if player.maths_question_2_1 == "25%":
                     correct_answers = correct_answers + 1
                 if player.maths_question_2_2 == "0.095":
                     correct_answers = correct_answers + 1       
                 if player.maths_question_2_3 == "1 in 3":
                     correct_answers = correct_answers + 1 
-                if player.maths_question_2_4 == "rain and hail":
+                if player.maths_question_2_4 == "375":
                     correct_answers = correct_answers + 1  
-                if player.maths_question_2_5 == "1 in 5":
+                if player.maths_question_2_5 == "rain and hail":
                     correct_answers = correct_answers + 1  
                 player.correct_answers = correct_answers
 
