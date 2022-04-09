@@ -302,7 +302,7 @@ class refer_task(Page):
                 r = player.participant.referrer_childcare_r_m[player.round_number - 1]    
         player.performer_name = df.loc[r, 'performer_name']
         player.performer_score_rd1 = int(df.loc[r, 'performer_score_rd1'])
-        player.performer_score_rd1 = int(df.loc[r, 'performer_score_rd2'])
+        player.performer_score_rd2 = int(df.loc[r, 'performer_score_rd2'])
         player.performer_age = int(df.loc[r, 'performer_age'])
         player.performer_participant_code = df.loc[r, 'performer_participant_code']
         player.performer_profile_index = r
