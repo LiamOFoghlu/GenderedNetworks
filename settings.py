@@ -9,13 +9,13 @@ SESSION_CONFIGS = [
     dict(
         name='referrer_task',
         app_sequence=['referrer_intro', 'referrer_task', 'referrer_debrief'],
-        num_demo_participants=8,
+        num_demo_participants=20,
     ),
-    dict(
-        name='selector_task',
-        app_sequence=['selector_intro', 'selector_task', 'selector_debrief'],
-        num_demo_participants=8,
-    ),   
+    # dict(
+    #     name='selector_task',
+    #     app_sequence=['selector_intro', 'selector_task', 'selector_debrief'],
+    #     num_demo_participants=8,
+    # ),   
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -28,23 +28,19 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 PARTICIPANT_FIELDS = [
-    'performer_round_numbers',       # a list definining the order in which maths and childcare tasks should be shown
-    'performer_start_epochtime',     # a scalar recording the epoch time the participant entered
-    'performer_task_rounds',         # a dictionary with key = task and value = round in which task is displayed
-    'performer_maths_r',             # random maths profile
-    'performer_childcare_r',           # random childcare profile
-    'performer_task_order',          # 1 = maths first; 2 = childcare first
-    'performer_name_choices',        # a list with a random selection of common English first names
+    'performer_round_numbers',      # a list definining the order in which maths and childcare tasks should be shown
+    'performer_start_epochtime',    # a scalar recording the epoch time the participant entered
+    'performer_task_rounds',        # a dictionary with key = task and value = round in which task is displayed
+    'performer_task_order',         # 1 = maths first; 2 = childcare first
+    'performer_name_choices',       # a list with a random selection of common English first names
     'referrer_start_epochtime',     # a scalar recording the epoch time the participant entered
-    'referrer_task_rounds',         # a dictionary with key = task and value = round in which task is displayed
-    'referrer_maths_r',             # random maths profile
-    'referrer_childcare_r',           # random childcare profile
-    'referrer_treatment',          # 1 = maths first; 2 = childcare first
-    'referrer_mathspractice_q1',
-    'referrer_mathspractice_q2',
-    'referrer_childcarepractice_q1',
-    'referrer_childcarepractice_q2',
-    'referrer_num_referrals',        # did the referrer make a referral?
+    'referrer_maths_r_f',           # random female performer maths profile
+    'referrer_childcare_r_f',       # random female performer childcare profile
+    'referrer_maths_r_m',           # random male performer maths profile
+    'referrer_childcare_r_m',       # random male performer childcare profile
+    'referrer_treatment',           # 1 = maths first; 2 = childcare first
+    'referrer_gender_order',        # order in whuch referrer sees male and female profiles
+    'referrer_num_referrals',       # did the referrer make a referral?
     'referrer_name_choices',        # a list with a random selection of common german first names
     'selector_round_numbers',       # a list definining the order in which maths and childcare tasks should be shown
     'selector_start_epochtime',     # a scalar recording the epoch time the participant entered

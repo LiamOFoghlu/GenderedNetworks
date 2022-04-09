@@ -8,16 +8,21 @@
 {% block content %}
 <br>
 <h5>The performers</h5>
-<p>On April X, YYY "performers" were hired via Prolific to do a {{task_details}} They did two rounds of this task.</p> 
+<p>On April 7, about 100 "performers" were hired via Prolific to do a {{task_details}} They did two rounds of this task.</p> 
 <br>
 <h5>Your task</h5>
-<p>You will on the role of "referrer". Shortly you will be shown, in sequence, the profiles of {{number_of_rounds}} performers. The profiles will show information on the performer's score in the first round of the task, as well as some biographical data.</p>
-<p>After seeing the performer's profile, you will be asked whether or not you wish to "refer" them to a pool of "selectors". The selectors are participants who will also be hired via Prolific. If you choose not to refer the performer, you will receive a guaranteed payoff of {{Constants.no_refer_bonus}}. If you choose to refer a performer, you will receive a payoff of {{Constants.refer_bonus}}. However, a selector can increase or reduce this amount, as explained in the following paragraphs</p>
+<p>You will on the role of "referrer". Shortly you will be shown, in sequence, the profiles of {{number_of_rounds}} performers. The profiles will show information on the performer's score in the first round of the task, as well as some biographical data. The average score in the first round was {{avg_score}}.</p>
+<p>After seeing the performer's profile, you will be asked whether or not you wish to "refer" them to a pool of "selectors". The selectors are participants who will also be hired via Prolific. If you choose not to refer the performer, you will receive a guaranteed payoff of {{Constants.no_refer_bonus}}. If you choose to refer a performer, you will receive a payoff of {{Constants.refer_bonus}}. However, a selector can increase or reduce this amount, as explained in the following paragraphs.</p>
 <br>
 <h5>The selectors</h5>
 <p>The selectors will be shown a random selection of performers with and without a referral and asked which performer(s) they wish to select. After the selector has chosen their performer, the score of that performer in the second round of the task will be revealed to the selector. Remember, you will make your referral decision knowing only the first round score. The selector's own payoff is linked to the second round score. The higher the performer's score in the second round, the higher the selector's payoff.</p>
-<p>After having learned the score, the selector may then decide to (i) reward the referrer - by increasing the referrer's bonus to {{Constants.reward_bonus}}; (ii) punish the referrer - by reducing the referrer's bonus to {{Constants.punishment_bonus}}; (iii) neither to reward nor punish leaving your reward at {{Constants.refer_bonus}}. The diagram below shows the possible payoffs, depending on your choice and the choice of the selector.</p>
-<p>The payoffs for non-referrals and for referrals will be made at the same time - you will not receive your payoff any sooner by choosing either to refer or not refer.</p>
+<p>After having learned the score, the selector may then decide to:
+<ul>
+    <p>(i) reward the referrer - by increasing the referrer's bonus to {{Constants.reward_bonus}}</p>
+    <p>(ii) punish the referrer - by reducing the referrer's bonus to {{Constants.punishment_bonus}}</p> 
+    <p></p>(iii) neither to reward nor punish leaving your reward at {{Constants.refer_bonus}}. </p>
+</ul>
+<p>The diagram below shows the possible payoffs, depending on your choice and the choice of the selector. Note that you can receive a payoff <i>for each performer you review</i>. The payoffs for non-referrals and for referrals will be made at the same time - you will not receive your payoff any sooner by choosing either to refer or not refer.</p>
 <p><br></p>
 <img align=center src="{% static 'referrer_payoff_diagram.png' %}" width="700px" />
 <br>

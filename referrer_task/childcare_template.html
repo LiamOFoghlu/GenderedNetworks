@@ -1,5 +1,6 @@
-<p>On the next page you will see the profile of a performer who completed the {{task}} task and will be asked asked whether you wish to refer them. The performer was shown a short text about childcare and had to five answer questions about it. They had to answer all questions within {{ timer }} seconds. Unanswered questions were treated as wrong answers.</p>
-<p>To give you an idea of the questions faced by the performers, two of the five are given below. Before you continue to the referral stage, please try to answer them. Don't worry, your payoff doesn't depend on answering right or wrong - the purpose is just to familiarise yourelf with the task.</p>
+<p>On the next {{Constants.num_rounds}} pages you will see, in sequence, the profiles of performers who completed the {{task}} task.</p> 
+<p>The performers did two rounds of the task. In each round they were shown a short text about childcare practices and had to answer five questions about it. They had to answer all questions within {{ timer }} seconds. Unanswered questions were treated as wrong answers. The average score in the first round of this task was 2.9 correct answers out of 5</p>
+<p>To give you an idea of how the childcare task worked, all five questions from the first round have been placed below, along with the text. Please try to answer them. Don't worry, your payoff doesn't depend on answering right or wrong - the purpose is just to familiarise yourself with the task. </p>
 <br>
 <br>
 
@@ -11,3 +12,17 @@
 <img align=centre src="{% static 'childcare_text_round_1.png' %}" width="80%" />
 <br>
 <br>
+<h5> Question one </h5> 
+{% formfield player.childcare_question_1_1 %}
+<br>
+<h5> Question two </h5> 
+{% formfield player.childcare_question_1_2 %}
+<br>
+<h5> Question three </h5> 
+{% formfield player.childcare_question_1_3 %}
+<br>
+<h5> Question four </h5> 
+{% formfield player.childcare_question_1_4 %}
+<br>
+<h5> Question five </h5> 
+{% formfield player.childcare_question_1_5 %}

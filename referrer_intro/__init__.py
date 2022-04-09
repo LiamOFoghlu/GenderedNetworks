@@ -10,12 +10,12 @@ class Constants(BaseConstants):
     name_in_url = 'referrer_intro'
     players_per_group = None
     num_rounds = 1
-    participation_fee = "£2.25"
+    participation_fee = "£1.80"
     no_refer_bonus = "£0.50"
     refer_bonus = "£0.60"
     punishment_bonus = "£0.20"
     reward_bonus = "£0.80"
-    total_max_reward_bonus = 2*float(reward_bonus[1:len(reward_bonus)])
+    total_max_reward_bonus = 4*float(reward_bonus[1:len(reward_bonus)]) + 1 # 4 rounds
     total_max_reward_bonus = "£" + str(total_max_reward_bonus)
     if len(total_max_reward_bonus) == 4:
         total_max_reward_bonus = total_max_reward_bonus + "0"
@@ -68,13 +68,16 @@ class Instructions(Page):
         if player.participant.referrer_treatment == "maths":
             task_details = "maths task. The performers had to answer several maths questions."
             task = "maths"
+            avg_score = "2.5 correct answers out of 5"
         else:
             task_details = "childcare task. The performers had to read a text describing how to care for young children and then answer questions about proper childcare practices and childhood developmental stages."
             task = "childcare"
+            avg_score = "2.9 correct answers out of 5"
         return dict(
             task_details = task_details,
             task = task,
-            number_of_rounds = 4
+            number_of_rounds = 4,
+            avg_score = avg_score
         )
 
 class Practice_referral(Page):

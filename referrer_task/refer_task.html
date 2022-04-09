@@ -18,7 +18,8 @@ table {
 {% block content %}
 
 <p>Below is the profile of {{performer_name}}, a performer who did the {{task}} task. Please carefully read the profile and decide whether you wish to refer {{performer_name}} to a selector or not.</p>
-
+<p>If you choose not to refer {{performer_name}} you will receive {{Constants.no_refer_bonus}} guaranteed.</p>
+<p>If you do refer {{performer_name}} you will receive {{Constants.refer_bonus}}, but the selector who receives the referral may reduce your payoff to {{Constants.punishment_bonus}} or increase it to {{Constants.reward_bonus}}, depending on how satisfied they are with your referral.</p>
 <br>
 
 {{ include refer_table_template }}

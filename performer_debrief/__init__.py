@@ -10,7 +10,7 @@ class Constants(BaseConstants):
     name_in_url = 'performer_debrief'
     players_per_group = None
     num_rounds = 1
-    session_gender = "female" # toggle this between genders depending on the session
+    session_gender = "male" # toggle this between genders depending on the session
     
 
 class Subsession(BaseSubsession):

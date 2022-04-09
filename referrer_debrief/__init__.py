@@ -28,8 +28,6 @@ def creating_session(subsession):
             choices = names[0:5]
             random.shuffle(choices)
             player.participant.referrer_name_choices = choices
-            print(player.participant.code, player.participant.referrer_name_choices)
-
 
 
 class Group(BaseGroup):
