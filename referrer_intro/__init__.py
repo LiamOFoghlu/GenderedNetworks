@@ -10,12 +10,12 @@ class Constants(BaseConstants):
     name_in_url = 'referrer_intro'
     players_per_group = None
     num_rounds = 1
-    participation_fee = "£1.80"
+    participation_fee = "£2.00"
     no_refer_bonus = "£0.50"
     refer_bonus = "£0.60"
     punishment_bonus = "£0.20"
     reward_bonus = "£0.80"
-    total_max_reward_bonus = 4*float(reward_bonus[1:len(reward_bonus)]) + 1 # 4 rounds
+    total_max_reward_bonus = 4*float(reward_bonus[1:len(reward_bonus)]) # 4 rounds
     total_max_reward_bonus = "£" + str(total_max_reward_bonus)
     if len(total_max_reward_bonus) == 4:
         total_max_reward_bonus = total_max_reward_bonus + "0"
