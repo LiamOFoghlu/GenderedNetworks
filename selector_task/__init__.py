@@ -72,6 +72,7 @@ class Subsession(BaseSubsession):
 def creating_session(subsession):
     if subsession.round_number == 1:
         import itertools, random
+        print('restart')
 
         #randomise task order
         task_order = itertools.cycle([1, 2]) # 1 = maths, 2 = childcare
@@ -120,6 +121,22 @@ def creating_session(subsession):
             player.participant.selector_r_mmm = random.sample(Constants.df_mmm_index, 1)[0]
             player.participant.selector_r_mmf = random.sample(Constants.df_mmf_index, 1)[0]      
             
+            print(player.participant.selector_r_cnf,
+                player.participant.selector_r_cDff,
+                player.participant.selector_r_cff,
+                player.participant.selector_r_cfm,
+                player.participant.selector_r_cnm,
+                player.participant.selector_r_cDmm,
+                player.participant.selector_r_cmm,
+                player.participant.selector_r_cmf,
+                player.participant.selector_r_mnf,
+                player.participant.selector_r_mDff,
+                player.participant.selector_r_mff,
+                player.participant.selector_r_mfm,
+                player.participant.selector_r_mnm,
+                player.participant.selector_r_mDmm,
+                player.participant.selector_r_mmm,
+                player.participant.selector_r_mmf)
 
 class Group(BaseGroup):
     pass
