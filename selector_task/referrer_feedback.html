@@ -2,20 +2,63 @@
 {% load otree static %}
 
 {% block title %}
-Referrer feedback for the {{task}} task. Round {{display_round}} of {{Constants.rounds_per_task}}
+Referrer feedback for the {{task}} task
 {% endblock %}
 
 {% block content %} 
 
 <br>
-<h4>Selected performer's second round score</h4>
-<p>You selected {{performer_letter}}, {{performer_name}}. In the second round of the {{task}} task, {{performer_name}} scored {{performer_score}}.</p>
-<p>Your payoff for selecting {{performer_name}} is: {{employer_payoff}}</p>
+<p>Below you will see the second round score of the performer you selected in each round, along with your payoff for that round.</p>
+<p>You will also see the referrer who referred the performer you selected. If you wish, you may choose to  increase or decrease that referrer's payoff to signal your satisfaction with their referral. Remember, <i>the referrers only saw the performer's first round score.</i></p>
 <br>
-
-{{include template}}
-
+<h4>Round 1 </h4>
+<h5>Payoff</h5>
+<p>In the first round you selected {{performer_letter1}}, {{performer_name1}}. In the second round of the {{task}} task, {{performer_name1}} scored {{performer_score1}}.</p>
+<p>Your payoff for selecting {{performer_name1}} is {{performer_score1}} of £0.40 = {{payoff1}}</p>
+<h5>Referral feedback</h5>
+<p>Since {{performer_name1}} did not receive a referral, you do not need to give a refferal feedback for this round.</p>
 <br>
+<h4>Round 2 </h4>
+<h5>Payoff</h5>
+<p>In the second round you selected {{performer_letter2}}, {{performer_name2}}. In the second round of the {{task}} task, {{performer_name2}} scored {{performer_score2}}.</p>
+<p>Your payoff for selecting {{performer_name2}} is {{performer_score2}} of £0.40 = {{payoff2}}</p>
+<h5>Referral feedback</h5>
+<p>{{performer_name2}} was referred to you by {{referrer_name2}}. Please consider {{performer_name2}}'s score and decide whether you wish to:
+    <ul>
+        <li>Reward {{referrer_name2}}, by increasing the referrer payoff to {{ Constants.referrer_reward}}</li>
+        <li>Punish {{referrer_name2}}, by decreasing the referrer payoff to {{ Constants.referrer_punishment}}</li>
+        <li>Leave {{referrer_name2}}'s payoff at {{ Constants.referrer_neither}}</li>
+    </ul>
+<p>What payoff should referrer {{referrer_name2}} get?</p>
+{% formfield player.referrer_feedback2 %}
+<br>
+<h4>Round 3 </h4>
+<h5>Payoff</h5>
+<p>In the third round you selected {{performer_letter3}}, {{performer_name3}}. In the second round of the {{task}} task, {{performer_name3}} scored {{performer_score3}}.</p>
+<p>Your payoff for selecting {{performer_name3}} is {{performer_score3}} of £0.40 = {{payoff3}}</p>
+<h5>Referral feedback</h5>
+<p>{{performer_name3}} was referred to you by {{referrer_name3}}. Please consider {{performer_name3}}'s score and decide whether you wish to:
+    <ul>
+        <li>Reward {{referrer_name3}}, by increasing the referrer payoff to {{ Constants.referrer_reward}}</li>
+        <li>Punish {{referrer_name3}}, by decreasing the referrer payoff to {{ Constants.referrer_punishment}}</li>
+        <li>Leave {{referrer_name3}}'s payoff at {{ Constants.referrer_neither}}</li>
+    </ul>
+<p>What payoff should referrer {{referrer_name3}} get?</p>
+{% formfield player.referrer_feedback3 %}
+<br>
+<h4>Round 4 </h4>
+<h5>Payoff</h5>
+<p>In the fourth round you selected {{performer_letter4}}, {{performer_name4}}. In the second round of the {{task}} task, {{performer_name4}} scored {{performer_score4}}.</p>
+<p>Your payoff for selecting {{performer_name4}} is {{performer_score4}} of £0.40 = {{payoff4}}</p>
+<h5>Referral feedback</h5>
+<p>{{performer_name4}} was referred to you by {{referrer_name4}}. Please consider {{performer_name4}}'s score and decide whether you wish to:
+    <ul>
+        <li>Reward {{referrer_name4}}, by increasing the referrer payoff to {{ Constants.referrer_reward}}</li>
+        <li>Punish {{referrer_name4}}, by decreasing the referrer payoff to {{ Constants.referrer_punishment}}</li>
+        <li>Leave {{referrer_name4}}'s payoff at {{ Constants.referrer_neither}}</li>
+    </ul>
+<p>What payoff should referrer {{referrer_name4}} get?</p>
+{% formfield player.referrer_feedback4 %}
 <br>
 {% next_button %}
 

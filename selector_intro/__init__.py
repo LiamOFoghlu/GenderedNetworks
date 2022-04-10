@@ -10,27 +10,27 @@ class Constants(BaseConstants):
     name_in_url = 'selector_intro'
     players_per_group = None
     num_rounds = 1
-    participation_fee = "£3.00"
-    employer_reward = "£0.40"  # reward per decision
-    num_decisions_per_task = 5
-    max_reward = (2*num_decisions_per_task)*float(employer_reward[1:len(employer_reward)]) + 1   # including belief bonus
+    participation_fee = "£2.60"
+    selector_reward = "£0.40"  # reward per decision
+    num_decisions_per_task = 4
+    max_reward = (2*num_decisions_per_task)*float(selector_reward[1:len(selector_reward)]) + 1   # including belief bonus
     max_reward = "£" + str(max_reward)
     if len(max_reward) == 4:
         max_reward = max_reward + "0"
-    max_selection_reward = (2*num_decisions_per_task)*float(employer_reward[1:len(employer_reward)])  
+    max_selection_reward = (2*num_decisions_per_task)*float(selector_reward[1:len(selector_reward)])  
     max_selection_reward = "£" + str(max_selection_reward)
     if len(max_selection_reward) == 4:
         max_selection_reward = max_selection_reward + "0"
-    referrer_punishment = "£0.90"
-    referrer_no_refer_bonus = "£1.00"
-    referrer_neither = "£1.25"
-    referrer_reward = "£1.50"
+    referrer_punishment = "£0.20"
+    referrer_no_refer_bonus = "£0.50"
+    referrer_neither = "£0.60"
+    referrer_reward = "£0.80"
     practice_performer_a = "Jennifer"
     practice_performer_b = "William"
     practice_referrer_a = "Andrew"
     practice_referrer_b = "Rachel"
     practice_performer_score = 0.8
-    sixty_percent = round(0.6*float(employer_reward[1:len(employer_reward)]), 2)
+    sixty_percent = round(0.6*float(selector_reward[1:len(selector_reward)]), 2)
     sixty_percent = "£" + str(sixty_percent)
     if len(sixty_percent) == 4:
         sixty_percent = sixty_percent + "0"
@@ -89,8 +89,8 @@ class Practice_feedback(Page):
     form_fields = ['referrer_feedback']
 
     def vars_for_template(player):
-        employer_reward_num = float(Constants.employer_reward[1:len(Constants.employer_reward)])
-        practice_payoff = str(round(employer_reward_num * Constants.practice_performer_score, 2))
+        selector_reward_num = float(Constants.selector_reward[1:len(Constants.selector_reward)])
+        practice_payoff = str(round(selector_reward_num * Constants.practice_performer_score, 2))
         if len(practice_payoff) < 4:
             practice_payoff = practice_payoff + "0"
         practice_payoff = "£" + practice_payoff

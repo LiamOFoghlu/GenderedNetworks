@@ -30,23 +30,30 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     comment = models.LongStringField()
-    maths_gender_accuracy = models.StringField(
-        label = "Which group had a better score, on average, in the second round of the maths task: female-referred performers, or male-referred performers?",
-        choices = ['Female-referred performers', 'Male-referred performers'],
-        widget = widgets.RadioSelectHorizontal)
-    empathy_gender_accuracy = models.StringField(
-        label = "Which group had a better score, on average, in the second round of the empathy task: female-referred performers, or male-referred performers?",
-        choices = ['Female-referred performers', 'Male-referred performers'],
-        widget = widgets.RadioSelectHorizontal)       
+    mathsgenderaccuracy = models.StringField(
+        label = "Which group had a better score, on average, in the second round of the maths task: performers with female referrers, or performers with male referrers?")
+    childcaregenderaccuracy = models.StringField(
+        label = "Which group had a better score, on average, in the second round of the childcare task: performers with female referrers, or performers with male referrers?")       
     stop_epochtime = models.IntegerField()
     stop_clocktime = models.StringField()
     total_time_to_completion = models.IntegerField()
 
+def mathsgenderaccuracy_choices(player):
+    import random
+    choices = ['performers with female referrers', 'performers with male referrers']
+    random.shuffle(choices)
+    return choices
+
+def childcaregenderaccuracy_choices(player):
+    import random
+    choices = ['performers with female referrers', 'performers with male referrers']
+    random.shuffle(choices)
+    return choices
 
 # PAGES
 class referrer_accuracy(Page):
     form_model = Player
-    form_fields = ['maths_gender_accuracy', 'empathy_gender_accuracy']
+    form_fields = ['mathsgenderaccuracy', 'childcaregenderaccuracy']
 
 
 class end(Page):

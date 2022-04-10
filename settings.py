@@ -11,11 +11,11 @@ SESSION_CONFIGS = [
         app_sequence=['referrer_intro', 'referrer_task', 'referrer_debrief'],
         num_demo_participants=20,
     ),
-    # dict(
-    #     name='selector_task',
-    #     app_sequence=['selector_intro', 'selector_task', 'selector_debrief'],
-    #     num_demo_participants=8,
-    # ),   
+    dict(
+        name='selector_task',
+        app_sequence=['selector_intro', 'selector_task', 'selector_debrief'],
+        num_demo_participants=8,
+    ),   
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
@@ -45,11 +45,26 @@ PARTICIPANT_FIELDS = [
     'selector_round_numbers',       # a list definining the order in which maths and childcare tasks should be shown
     'selector_start_epochtime',     # a scalar recording the epoch time the participant entered
     'selector_task_rounds',         # a dictionary with key = task and value = round in which task is displayed
-    'selector_maths_r',             # random maths profile
-    'selector_childcare_r',         # random childcare profile
+    'selector_homo_order',          # 1 = homo first, hetero second; 2 = hetero first, homo second
+    'selector_dummy_gender',        # 1 = male, 2 = female
+    'selector_gender_A',            # list; 1 = male, 2 = female
     'selector_task_order',          # 1 = maths first; 2 = childcare first
-    'selector_maths_practice_qs',    # list of the randomsied index of maths questions
-    'selector_childcare_practice_qs' # list of the randomsied index of childcare questions
+    'selector_r_cnf',               # index for random profile
+    'selector_r_cDff',              # index for random profiles
+    'selector_r_cff',               # index for random profile
+    'selector_r_cfm',               # index for random profile
+    'selector_r_cnm',               # index for random profile
+    'selector_r_cDmm',              # index for random profiles
+    'selector_r_cmm',               # index for random profile
+    'selector_r_cmf',               # index for random profile
+    'selector_r_mnf',               # index for random profile
+    'selector_r_mDff',              # index for random profiles
+    'selector_r_mff',               # index for random profile
+    'selector_r_mfm',               # index for random profile
+    'selector_r_mnm',               # index for random profile
+    'selector_r_mDmm',              # index for random profiles
+    'selector_r_mmm',               # index for random profile
+    'selector_r_mmf',               # index for random profile
 ]
 SESSION_FIELDS = []
 

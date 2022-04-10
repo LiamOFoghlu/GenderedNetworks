@@ -14,56 +14,56 @@ class Constants(BaseConstants):
     tasks = ['maths', 'childcare']
     rounds_per_task = 4
     num_rounds = len(tasks) * rounds_per_task # this the total number of rounds that will be done by the player (so, if they do 3 rounds of Task A and 3 rounds of Task B, then they will do 3 + 3 = 6 rounds overall)
-    employer_reward = "£0.40"  # reward per decision
-    referrer_punishment = "£0.90"
-    referrer_neither = "£1.25"
-    referrer_reward = "£1.50"
-
-    # practice questions
-    player_maths_qs = 5 # these are the total number of questions answered by the performer per round
-    player_childcare_qs = 5
-    maths_labels = [
-        'Items bought by a trader for £80 are sold for £100. The profit expressed as a percentage of cost price is: ', 
-        'A man bought a shirt at a sale. He saves £30 on the normal price when he paid £120 for the shirt. What was the percentage discount on the shirt?', 
-        'How many subsets does {a,b,c,d,e} have?', 
-        'What is the median of the given data: 13, 16, 12, 14, 19, 14, 13, 14', 
-        'In coordinate geometry, what is the equation of the x-axis?']
-    maths_a1 = [
-        [2.5, "2.5%"],
-        [20, "20%"],
-        [2,"2"],
-        [14,"14"],
-        [1, "y = 0 "]
-    ]
-    maths_a2 = [
-        [20, "20%"],
-        [25,"25%"],
-        [4,"4"],
-        [19,"19"],
-        [2,"x = y"]
-    ]
-    maths_a3 = [
-        [25,"25%"],
-        [33.33,"33.33%"],
-        [10,"10"],
-        [12,"12"],
-        [3,"3x = 0"]
-    ]
-    maths_a4 = [
-        [50, "50%"],
-        [80, "80%"],
-        [32,"32"],
-        [14.5,"14.5"],
-        [4, "y = 1"]
-    ]
+    selector_reward = "£0.40"  # reward per decision
+    referrer_punishment = "£0.20"
+    referrer_neither = "£0.60"
+    referrer_reward = "£0.80"
 
     # referral data
     import pandas as pd
-    df_maths = pd.read_csv("_static/referrals_df_maths.csv")
-    df_childcare = pd.read_csv("_static/referrals_df_childcare.csv")
+    df_cnf = pd.read_csv("_static/df_cnf.csv")
+    df_cnf_index = list(range(len(df_cnf)))
+    df_cDff = pd.read_csv("_static/df_cDff.csv")
+    df_cDff_index = list(range(len(df_cDff)))
+    df_cff = pd.read_csv("_static/df_cff.csv")
+    df_cff_index = list(range(len(df_cff)))
+    df_cfm = pd.read_csv("_static/df_cfm.csv")
+    df_cfm_index = list(range(len(df_cfm)))
+    df_cnm = pd.read_csv("_static/df_cnm.csv")
+    df_cnm_index = list(range(len(df_cnm)))
+    df_cDmm = pd.read_csv("_static/df_cDmm.csv")
+    df_cDmm_index = list(range(len(df_cDmm)))
+    df_cmm = pd.read_csv("_static/df_cmm.csv")
+    df_cmm_index = list(range(len(df_cmm)))
+    df_cmf = pd.read_csv("_static/df_cmf.csv")
+    df_cmf_index = list(range(len(df_cmf)))
+    df_mnf = pd.read_csv("_static/df_mnf.csv")
+    df_mnf_index = list(range(len(df_mnf)))
+    df_mDff = pd.read_csv("_static/df_mDff.csv")
+    df_mDff_index = list(range(len(df_mDff)))
+    df_mff = pd.read_csv("_static/df_mff.csv")
+    df_mff_index = list(range(len(df_mff)))
+    df_mfm = pd.read_csv("_static/df_mfm.csv")
+    df_mfm_index = list(range(len(df_mfm)))
+    df_mnm = pd.read_csv("_static/df_mnm.csv")
+    df_mnm_index = list(range(len(df_mnm)))
+    df_mDmm = pd.read_csv("_static/df_mDmm.csv")
+    df_mDmm_index = list(range(len(df_mDmm)))
+    df_mmm = pd.read_csv("_static/df_mmm.csv")
+    df_mmm_index = list(range(len(df_mmm)))
+    df_mmf = pd.read_csv("_static/df_mmf.csv")
+    df_mmf_index = list(range(len(df_mmf)))
 
-def record_profile_info(df, r, column):
-    return df.loc[r,column]
+
+    # treatment
+    num_participants = 6000          # note this doesn't really have to be the number of participants, it just indirectly determines the number of blocks. Still, good practice to set it hgiher than expected number of participants
+    num_blocks = -1*( -num_participants // 2) # I'm gonna create blocks within which the treatment is exactly balanced ==> half in maths and half in childcare
+    generic_treatment_block = list(range(1,3)) # this is the block: there are two elements, 1 = maths, 2 = childcare
+    generic_treatment_assignment = [] # a ist of all append treatment blocks
+    for i in range(num_blocks):
+        generic_treatment_assignment = generic_treatment_assignment + generic_treatment_block # create a list of appended treatment blocks
+    import random    
+    random.shuffle(generic_treatment_assignment) 
 
 
 class Subsession(BaseSubsession):
@@ -71,16 +71,19 @@ class Subsession(BaseSubsession):
 
 def creating_session(subsession):
     if subsession.round_number == 1:
-        print("executing subsession")
         import itertools, random
 
         #randomise task order
-        t_o = itertools.cycle([1, 2])
-
+        task_order = itertools.cycle([1, 2]) # 1 = maths, 2 = childcare
+        generic_treatment_assignment = itertools.cycle(Constants.generic_treatment_assignment) 
+        gender_A_list = list(range(Constants.num_rounds)) # a list to determine the performer gender of Profile A
+        for i in gender_A_list:
+            gender_A_list[i] = (gender_A_list[i] % 2) + 1
+            
         for player in subsession.get_players(): # iterate through the players
 
             # create dictionary that links task to round number, based on task_order 
-            player.participant.selector_task_order = next(t_o)
+            player.participant.selector_task_order = next(task_order)
             round_numbers = list(range(1, Constants.num_rounds + 1))
             if player.participant.selector_task_order == 2:
                 round_numbers.reverse() 
@@ -90,154 +93,170 @@ def creating_session(subsession):
             round_numbers_list = [round_numbers_list1, round_numbers_list2]
             player.participant.selector_task_rounds = dict(zip(Constants.tasks, round_numbers_list))
 
-            # determine which practice maths questions the player answers
-            maths_qs = list(range(Constants.player_maths_qs))
-            random.shuffle(maths_qs)
-            player.participant.selector_maths_practice_qs = maths_qs[0:2]
+            # R1: selector_homo_order, 1 = homo first, hetero second; 2 = hetero first, homo second
+            player.participant.selector_homo_order = next(generic_treatment_assignment)  
 
+            # R2: selector_dummy_gender, 1 = male, 2 = female
+            player.participant.selector_dummy_gender = next(generic_treatment_assignment)  
 
-            # determine which practice childcare questions the player answers
-            childcare_qs = list(range(Constants.player_childcare_qs))
-            random.shuffle(childcare_qs)
-            player.participant.selector_childcare_practice_qs = maths_qs[0:2]
+            # R3: selector_gender_A, gender of player A, 1 = male, 2 = female
+            player.participant.selector_gender_A = random.sample(gender_A_list, Constants.num_rounds)
 
-            # randomly assign profiles -- NB: will need to edit this section when I get the real data
-            maths_num_list = list(range(len(Constants.df_maths)))
-            random.shuffle(maths_num_list)
-            player.participant.selector_maths_r = maths_num_list # this creates a list with the index of the dataset in random order
-            childcare_num_list = list(range(len(Constants.df_childcare)))
-            random.shuffle(childcare_num_list)
-            player.participant.selector_childcare_r = childcare_num_list  # this creates a list with the index of the dataset in random order
-
+            # R4: sample profile pair for each treatment condition
+            player.participant.selector_r_cnf = random.sample(Constants.df_cnf_index, 1)[0]
+            player.participant.selector_r_cDff = random.sample(Constants.df_cDff_index, 2)
+            player.participant.selector_r_cff = random.sample(Constants.df_cff_index, 1)[0]
+            player.participant.selector_r_cfm = random.sample(Constants.df_cfm_index, 1)[0]
+            player.participant.selector_r_cnm = random.sample(Constants.df_cnm_index, 1)[0]
+            player.participant.selector_r_cDmm = random.sample(Constants.df_cDmm_index, 2)
+            player.participant.selector_r_cmm = random.sample(Constants.df_cmm_index, 1)[0]
+            player.participant.selector_r_cmf = random.sample(Constants.df_cmf_index, 1)[0]
+            player.participant.selector_r_mnf = random.sample(Constants.df_mnf_index, 1)[0]
+            player.participant.selector_r_mDff = random.sample(Constants.df_mDff_index, 2)
+            player.participant.selector_r_mff = random.sample(Constants.df_mff_index, 1)[0]
+            player.participant.selector_r_mfm = random.sample(Constants.df_mfm_index, 1)[0]
+            player.participant.selector_r_mnm = random.sample(Constants.df_mnm_index, 1)[0]
+            player.participant.selector_r_mDmm = random.sample(Constants.df_mDmm_index, 2)
+            player.participant.selector_r_mmm = random.sample(Constants.df_mmm_index, 1)[0]
+            player.participant.selector_r_mmf = random.sample(Constants.df_mmf_index, 1)[0]      
+            
 
 class Group(BaseGroup):
     pass
 
 
 class Player(BasePlayer):
-    task_order = models.IntegerField()
-    mathspractice_q1 = models.IntegerField() # this and the below fields are simply numbers which record which of the N candidate questions are selected as practice questions
-    mathspractice_q2 = models.IntegerField()
-    childcarepractice_q1 = models.IntegerField()
-    childcarepractice_q2 = models.IntegerField()
 
-    ## maths questions
-    maths_question_1 = models.StringField(
-        label = "A shop has an offer: buy 8 kiwis, and every extra kiwi after that is half price. A customer goes to the shop and pays £4.50 for some kiwis. The full price of a kiwi is £0.50. How many does the customer buy?",
+    ## Performer profiles
+    referrer_name_a = models.StringField()
+    referral_code_a = models.StringField()
+    performer_name_a = models.StringField() 
+    performer_age_a = models.IntegerField()
+    performer_score_a = models.IntegerField()
+    referrer_name_b = models.StringField()
+    referral_code_b = models.StringField()
+    performer_name_b = models.StringField() 
+    performer_age_b = models.IntegerField()
+    performer_score_b = models.IntegerField()
+    select = models.StringField(label = "",
+        choices = ['Performer A','Performer B'],
+        widget=widgets.RadioSelectHorizontal)
+    task_in_this_round = models.StringField()
+
+    referrer_feedback2 = models.StringField(label = "",
+        choices = ['Decrease referrer payoff', 'Do not change referrer payoff', 'Increase referrer payoff',],
+        widget=widgets.RadioSelectHorizontal)
+    referrer_feedback3 = models.StringField(label = "",
+        choices = ['Decrease referrer payoff', 'Do not change referrer payoff', 'Increase referrer payoff',],
+        widget=widgets.RadioSelectHorizontal)
+    referrer_feedback4 = models.StringField(label = "",
+        choices = ['Decrease referrer payoff', 'Do not change referrer payoff', 'Increase referrer payoff',],
+        widget=widgets.RadioSelectHorizontal)
+
+    ## practice questions
+    # maths questions
+    maths_question_1_1 = models.StringField(
+        label = "A hiker walks from the bottom to the top of a hill. They start at 9.40am and arrive at the top at 10.20 am. They take a rest for ten minutes. Then they walk back down. On the way down, the hiker walks twice as fast as they did on the way up. What time is it when they reach the bottom of the hill?",
         choices = [
-            "9",
-            "12",
-            "10",
-            "15"
+            "10.50", # correct
+            "10.40",
+            "11.00", 
+            "11.10"
+        ],
+        widget = widgets.RadioSelectHorizontal
+    )   
+    maths_question_1_2 = models.StringField(
+        label="An inefficient factory produces 50 cars per week. On average, 10 per 50 has a fault. An inspector picks 2 cars per week to check. What is the probability both cars have faults?",
+        choices = [
+            "0.012", 
+            "0.037", # correct
+            "0.099",
+            "0.040"
+        ],
+        widget = widgets.RadioSelectHorizontal
+    )
+    maths_question_1_3 = models.StringField(
+        label = "A wizard has a 1 in 16 chance of killing a troll with his fireball, and can throw one fireball every minute. A hobbit has a 1 in 12 chance of killing the troll with his sword and can strike twice per minute. An elf has a 1 in 6 chance of shooting the troll with his bow and can shoot once per minute. A ranger has a 1 in 8 chance of killing a troll with his fists and can punch twice a minute. Who will kill the troll first?",
+        choices = [
+            "The wizard",
+            "The hobbit",
+            "The elf",
+            "The ranger" # correct
+        ],
+         widget = widgets.RadioSelectHorizontal
+    )   
+    maths_question_1_4 = models.StringField(
+        label="Manchester United have a two in three chance of winning when Rashford plays and a one in four chance of winning when he doesn't. Rashford plays 30 matches out of 38 in a season. About how many matches should Manchester United win?",
+        choices = [
+            "24", 
+            "22", # correct
+            "20", 
+            "23"
         ],
         widget = widgets.RadioSelectHorizontal
     ) 
-    maths_question_2 = models.StringField(
-        label="A worker's regular pay is £3 per hour up to 40 hours. Overtime is twice the payment for regular time. If the worker was paid £168, how many hours did they work?",
+    maths_question_1_5 = models.StringField(
+        label= "A shop has an offer: buy 8 kiwis, and every extra kiwi after that is half price. A customer goes to the shop and pays £5.50 for some kiwis. The full price of a kiwi is £0.50. How many do they buy?",
         choices = [
-            "8",
+            "10",
+            "12",
             "16",
-            "28",
-            "48"
-        ],
-        widget = widgets.RadioSelectHorizontal
-    )
-    maths_question_3 = models.StringField(
-        label="3 and 4/5 expressed as a decimal is:",
-        choices = [
-            "3.40",
-            "3.45",
-            "3.80",
-            "3.50"
-        ],
-        widget = widgets.RadioSelectHorizontal
-    )
-    maths_question_4 = models.StringField(
-        label="Which of the following is the highest common factor of 18, 24, and 36?",
-        choices = [
-            "6",
-            "18",
-            "36",
-            "72"
-        ],
-        widget = widgets.RadioSelectHorizontal  
-    )    
-    maths_question_5 = models.StringField(
-        label="Which of the following is equal to 3y(x + 3) -2(x + 3) ?",
-        choices = [
-            "(x - 3)(x - 3)",
-            "2y(x + 3)",
-            "(x + 3)(3y – 2",
-            "3y(x + 3)"
-        ],
-        widget = widgets.RadioSelectHorizontal  
-    )    
-
-    ## childcare questions
-    # round 1
-    childcare_question_1 = models.StringField(
-        label= "Children should be exclusively breastfed for:",
-        choices = [
-            "The first month of their lives",
-            "The first three months of their lives",
-            "The first six months of their lives"
+            "14"  # correct
         ],
         widget = widgets.RadioSelectHorizontal
     )      
-    childcare_question_2 = models.StringField(
+
+    # childcare questions
+    childcare_question_1_1 = models.StringField(
+        label= "Babies should be bathed...",
+        choices = [
+            "Once a day",
+            "Once a week",
+            "Twice a day",
+            "Two to three times a week"
+        ],
+        widget = widgets.RadioSelectHorizontal
+    )      
+    childcare_question_1_2 = models.StringField(
         label= "Women should continue on-demand, frequent breastfeeding until the child is:",
         choices = [
+            "Six months old",
             "One year old",
             "Two years old",
             "One and a half years old"
         ],
         widget = widgets.RadioSelectHorizontal
     )      
-    childcare_question_3 = models.StringField(
+    childcare_question_1_3 = models.StringField(
         label= "Newborn babies…",
         choices = [
+            "Do not dream when they sleep",
             "Do not move about much when they sleep",
             "Wake up about once a night",
             "Sleep in cycles that last about one hour"
         ],
         widget = widgets.RadioSelectHorizontal
-    )      
-    childcare_question_4 = models.StringField(
-        label= "Babies should be bathed...",
+    )    
+    childcare_question_1_4 = models.StringField(
+        label= "Children should be exclusively breastfed for:",
         choices = [
-            "Once a day",
-            "Once a week",
-            "Two to three times a week"
+            "The first month of their lives",
+            "The first three months of their lives",
+            "The first six months of their lives",
+            "The first nine months of their lives"
         ],
         widget = widgets.RadioSelectHorizontal
-    )      
-    childcare_question_5 = models.StringField(
+    )        
+    childcare_question_1_5 = models.StringField(
         label= "Babies can be calmed by...",
         choices = [
+            "Squeezing their forearms",
             "Moistening their ears",
             "Stroking their back",
             "Tickling their feet"
         ],
         widget = widgets.RadioSelectHorizontal
     )      
-
-    ## Performer profiles
-    candidate_name_a = models.StringField() 
-    referrer_name_a = models.StringField()
-    candidate_age_a = models.IntegerField()
-    candidate_score_a = models.IntegerField()
-    candidate_name_b = models.StringField() 
-    referrer_name_b = models.StringField()
-    candidate_age_b = models.IntegerField()
-    candidate_score_b = models.IntegerField()
-    candidate_profile_index = models.IntegerField()   # remember, the data is in wide format so index is same for both candidates 
-    select = models.StringField(label = "",
-        choices = ['Performer A','Performer B'],
-        widget=widgets.RadioSelectHorizontal)
-    referrer_feedback = models.StringField(label = "",
-        choices = ['Increase referrer payoff','Decrease referrer payoff', 'Do not change referrer payoff'],
-        widget=widgets.RadioSelectHorizontal)
-    task_in_this_round = models.StringField()
 
 # PAGES
 class practice_task(Page):
@@ -248,42 +267,48 @@ class practice_task(Page):
 
     def get_form_fields(player: Player):
         if player.round_number in player.participant.selector_task_rounds['maths']:
-            questions = ['maths_question_1','maths_question_2','maths_question_3','maths_question_4','maths_question_5']
-            form_fields = [                                  # here I can insert a question from the questions list above by subsetting wiht a numerical index [player.mathspractice_1/2]. The get_form_fields function then "draws" the particular question's details from the information provided under the class Player(BasePlayer) part above.
-                        questions[player.participant.selector_maths_practice_qs[0]],
-                        questions[player.participant.selector_maths_practice_qs[1]],
+            form_fields = [
+                        'maths_question_1_1',
+                        'maths_question_1_2',
+                        'maths_question_1_3',
+                        'maths_question_1_4',
+                        'maths_question_1_5'
                         ]
-            return form_fields
-        else:
-            questions = ['childcare_question_1','childcare_question_2','childcare_question_3','childcare_question_4','childcare_question_5']
-            form_fields = [                                  
-                        questions[player.participant.selector_childcare_practice_qs[0]], # an index, range 1:5 which subsets from the questions list above
-                        questions[player.participant.selector_childcare_practice_qs[1]],
-                        ]
-            return form_fields
+        else: # childcare
+            form_fields = [
+                        'childcare_question_1_1',
+                        'childcare_question_1_2',
+                        'childcare_question_1_3',
+                        'childcare_question_1_4',
+                        'childcare_question_1_5'
+                        ] 
+        return form_fields        
 
     def vars_for_template(player):
         if player.round_number in player.participant.selector_task_rounds['maths']:
             template = 'selector_task/practice_maths_template.html'
             task = "maths"
-            task_player_num_qs = Constants.player_maths_qs
+            Task = "Maths"
+            task_player_num_qs = "five"
         elif player.round_number in player.participant.selector_task_rounds['childcare']:
             template = 'selector_task/practice_childcare_template.html'
             task = "childcare"
-            task_player_num_qs = Constants.player_childcare_qs
+            Task = "Childcare"
+            task_player_num_qs = "five"
         if player.round_number == 1:
                 page_order = "first"       
         elif player.round_number == ((Constants.num_rounds)/2 + 1):
                 page_order = "second"
         return dict(
                     task = task,
+                    Task = Task,
                     template = template,
                     page_order = page_order, 
                     task_player_num_qs = task_player_num_qs   #  number of questions answered
             )
 
 
-class select_task(Page):   #  Note: should randomise who is player a and who is player b
+class select_task(Page):  
     form_model = 'player'
     form_fields = [
         'select'
@@ -292,107 +317,447 @@ class select_task(Page):   #  Note: should randomise who is player a and who is 
     def vars_for_template(player):
         current_round = player.round_number
         player_task_order = player.participant.selector_task_order
+
+        ## maths
         if current_round in player.participant.selector_task_rounds['maths']: 
+            # task
             task = "maths"
-            df = Constants.df_maths
+
+            # profile_selector index
             if player_task_order == 1:
-                profile_selector = current_round - 1
+                profile_selector = current_round       # profile_selector is just a way to account for the fact that the second task's "first" round is actually the 5th one
             else:
-                profile_selector = current_round - Constants.rounds_per_task - 1
-            r = player.participant.selector_maths_r[profile_selector]
-        elif current_round in player.participant.selector_task_rounds['childcare']:
+                profile_selector = current_round - Constants.rounds_per_task
+            
+            # select profile pairs
+            if profile_selector == 1: # {nm, nf}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    df_A = Constants.df_mnm # A profile
+                    r_A = player.participant.selector_r_mnm
+                    df_B = Constants.df_mnf # B profile
+                    r_B = player.participant.selector_r_mnf
+                else: # female performer = A
+                    df_A = Constants.df_mnf # A profile
+                    r_A = player.participant.selector_r_mnf
+                    df_B = Constants.df_mnm # B profile
+                    r_B = player.participant.selector_r_mnm
+            if profile_selector == 2: # {dummy}
+                if player.participant.selector_dummy_gender == 1: # males only
+                    df_A = Constants.df_mDmm # A profile
+                    r_A = player.participant.selector_r_mDmm[0]
+                    df_B = Constants.df_mDmm # B profile
+                    r_B = player.participant.selector_r_mDmm[1]
+                else: # females only
+                    df_A = Constants.df_mDff # A profile
+                    r_A = player.participant.selector_r_mDff[0]
+                    df_B = Constants.df_mDff # B profile
+                    r_B = player.participant.selector_r_mDff[1]
+            if profile_selector == 3: # {homo/hetero}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    if player.participant.selector_homo_order == 1: # homo first
+                        df_A = Constants.df_mmm # A profile
+                        r_A = player.participant.selector_r_mmm
+                        df_B = Constants.df_mff # B profile
+                        r_B = player.participant.selector_r_mff
+                    else: # hetero first
+                        df_A = Constants.df_mfm # A profile
+                        r_A = player.participant.selector_r_mfm
+                        df_B = Constants.df_mmf # B profile
+                        r_B = player.participant.selector_r_mmf                       
+                else: # female performer = A
+                    if player.participant.selector_homo_order == 1: # homo first
+                        df_A = Constants.df_mff # A profile
+                        r_A = player.participant.selector_r_mff
+                        df_B = Constants.df_mmm # B profile
+                        r_B = player.participant.selector_r_mmm
+                    else: # hetero first
+                        df_A = Constants.df_mmf # A profile
+                        r_A = player.participant.selector_r_mmf
+                        df_B = Constants.df_mfm # B profile
+                        r_B = player.participant.selector_r_mfm  
+            if profile_selector == 4: # {homo/hetero}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    if player.participant.selector_homo_order == 2: # homo second
+                        df_A = Constants.df_mmm # A profile
+                        r_A = player.participant.selector_r_mmm
+                        df_B = Constants.df_mff # B profile
+                        r_B = player.participant.selector_r_mff
+                    else: # hetero second
+                        df_A = Constants.df_mfm # A profile
+                        r_A = player.participant.selector_r_mfm
+                        df_B = Constants.df_mmf # B profile
+                        r_B = player.participant.selector_r_mmf                       
+                else: # female performer = A
+                    if player.participant.selector_homo_order == 2: # homo second
+                        df_A = Constants.df_mff # A profile
+                        r_A = player.participant.selector_r_mff
+                        df_B = Constants.df_mmm # B profile
+                        r_B = player.participant.selector_r_mmm
+                    else: # hetero second
+                        df_A = Constants.df_mmf # A profile
+                        r_A = player.participant.selector_r_mmf
+                        df_B = Constants.df_mfm # B profile
+                        r_B = player.participant.selector_r_mfm 
+
+        # childcare
+        if current_round in player.participant.selector_task_rounds['childcare']: 
+            # task
             task = "childcare"
-            df = Constants.df_childcare
+
+            # profile_selector index
             if player_task_order == 1:
-                profile_selector = current_round - Constants.rounds_per_task - 1
+                profile_selector = current_round - Constants.rounds_per_task       # profile_selector is just a way to account for the fact that the second task's "first" round is actually the 5th one
             else:
-                profile_selector = current_round - 1
-            r = player.participant.selector_childcare_r[profile_selector]
-        select_table_template = 'selector_task/select_table_template.html'
+                profile_selector = current_round 
+
+            if profile_selector == 1: # {nm, nf}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    df_A = Constants.df_cnm # A profile
+                    r_A = player.participant.selector_r_cnm
+                    df_B = Constants.df_cnf # B profile
+                    r_B = player.participant.selector_r_cnf
+                else: # female performer = A
+                    df_A = Constants.df_cnf # A profile
+                    r_A = player.participant.selector_r_cnf
+                    df_B = Constants.df_cnm # B profile
+                    r_B = player.participant.selector_r_cnm
+            if profile_selector == 2: # {dummy}
+                if player.participant.selector_dummy_gender == 1: # males only
+                    df_A = Constants.df_cDmm # A profile
+                    r_A = player.participant.selector_r_cDmm[0]
+                    df_B = Constants.df_cDmm # B profile
+                    r_B = player.participant.selector_r_cDmm[1]
+                else: # females only
+                    df_A = Constants.df_cDff # A profile
+                    r_A = player.participant.selector_r_cDff[0]
+                    df_B = Constants.df_cDff # B profile
+                    r_B = player.participant.selector_r_cDff[1]
+            if profile_selector == 3: # {homo/hetero}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    if player.participant.selector_homo_order == 1: # homo first
+                        df_A = Constants.df_cmm # A profile
+                        r_A = player.participant.selector_r_cmm
+                        df_B = Constants.df_cff # B profile
+                        r_B = player.participant.selector_r_cff
+                    else: # hetero first
+                        df_A = Constants.df_cfm # A profile
+                        r_A = player.participant.selector_r_cfm
+                        df_B = Constants.df_cmf # B profile
+                        r_B = player.participant.selector_r_cmf                       
+                else: # female performer = A
+                    if player.participant.selector_homo_order == 1: # homo first
+                        df_A = Constants.df_cff # A profile
+                        r_A = player.participant.selector_r_cff
+                        df_B = Constants.df_cmm # B profile
+                        r_B = player.participant.selector_r_cmm
+                    else: # hetero first
+                        df_A = Constants.df_cmf # A profile
+                        r_A = player.participant.selector_r_cmf
+                        df_B = Constants.df_cfm # B profile
+                        r_B = player.participant.selector_r_cfm  
+            if profile_selector == 4: # {homo/hetero}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    if player.participant.selector_homo_order == 2: # homo second
+                        df_A = Constants.df_cmm # A profile
+                        r_A = player.participant.selector_r_cmm
+                        df_B = Constants.df_cff # B profile
+                        r_B = player.participant.selector_r_cff
+                    else: # hetero second
+                        df_A = Constants.df_cfm # A profile
+                        r_A = player.participant.selector_r_cfm
+                        df_B = Constants.df_cmf # B profile
+                        r_B = player.participant.selector_r_cmf                       
+                else: # female performer = A
+                    if player.participant.selector_homo_order == 2: # homo second
+                        df_A = Constants.df_cff # A profile
+                        r_A = player.participant.selector_r_cff
+                        df_B = Constants.df_cmm # B profile
+                        r_B = player.participant.selector_r_cmm
+                    else: # hetero second
+                        df_A = Constants.df_cmf # A profile
+                        r_A = player.participant.selector_r_cmf
+                        df_B = Constants.df_cfm # B profile
+                        r_B = player.participant.selector_r_cfm 
+
+        ## define dictionary
         return dict(
             task = task,
-            display_round = profile_selector + 1,
-            candidate_name_a = record_profile_info(df, r, 'candidate_name.a'),
-            referrer_name_a = record_profile_info(df, r, 'referrer_name.a'),
-            age_a = record_profile_info(df, r, 'candidate_age.a'),
-            candidate_name_b = record_profile_info(df, r, 'candidate_name.b'),
-            referrer_name_b = record_profile_info(df, r, 'referrer_name.b'),
-            age_b = record_profile_info(df, r, 'candidate_age.b'),
-            select_table_template = select_table_template
+            display_round = profile_selector,
+            performer_name_a = df_A.loc[r_A, 'performer_name'],
+            referrer_name_a = df_A.loc[r_A, 'referrer_name'],
+            performer_age_a = df_A.loc[r_A, 'performer_age'],
+            performer_name_b = df_B.loc[r_B, 'performer_name'],
+            referrer_name_b = df_B.loc[r_B, 'referrer_name'],
+            performer_age_b = df_B.loc[r_B, 'performer_age'],
+            select_table_template = 'selector_task/select_table_template.html'
         )
 
+
     def before_next_page(player, timeout_happened): # need to include "timout_happned" since otherwise it crashes. This is a useless var so should be ignored. But seems to be necessary to avoid crashing.
+
         current_round = player.round_number
         player_task_order = player.participant.selector_task_order
+
+        ## maths
         if current_round in player.participant.selector_task_rounds['maths']: 
+            # task
             player.task_in_this_round = "maths"
-            df = Constants.df_maths
+
+            # profile_selector index
             if player_task_order == 1:
-                profile_selector = current_round - 1
+                profile_selector = current_round       # profile_selector is just a way to account for the fact that the second task's "first" round is actually the 5th one
             else:
-                profile_selector = current_round - Constants.rounds_per_task - 1
-            r = player.participant.selector_maths_r[profile_selector]
-        elif current_round in player.participant.selector_task_rounds['childcare']:
+                profile_selector = current_round - Constants.rounds_per_task
+            
+            # select profile pairs
+            if profile_selector == 1: # {nm, nf}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    df_A = Constants.df_mnm # A profile
+                    r_A = player.participant.selector_r_mnm
+                    df_B = Constants.df_mnf # B profile
+                    r_B = player.participant.selector_r_mnf
+                else: # female performer = A
+                    df_A = Constants.df_mnf # A profile
+                    r_A = player.participant.selector_r_mnf
+                    df_B = Constants.df_mnm # B profile
+                    r_B = player.participant.selector_r_mnm
+            if profile_selector == 2: # {dummy}
+                if player.participant.selector_dummy_gender == 1: # males only
+                    df_A = Constants.df_mDmm # A profile
+                    r_A = player.participant.selector_r_mDmm[0]
+                    df_B = Constants.df_mDmm # B profile
+                    r_B = player.participant.selector_r_mDmm[1]
+                else: # females only
+                    df_A = Constants.df_mDff # A profile
+                    r_A = player.participant.selector_r_mDff[0]
+                    df_B = Constants.df_mDff # B profile
+                    r_B = player.participant.selector_r_mDff[1]
+            if profile_selector == 3: # {homo/hetero}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    if player.participant.selector_homo_order == 1: # homo first
+                        df_A = Constants.df_mmm # A profile
+                        r_A = player.participant.selector_r_mmm
+                        df_B = Constants.df_mff # B profile
+                        r_B = player.participant.selector_r_mff
+                    else: # hetero first
+                        df_A = Constants.df_mfm # A profile
+                        r_A = player.participant.selector_r_mfm
+                        df_B = Constants.df_mmf # B profile
+                        r_B = player.participant.selector_r_mmf                       
+                else: # female performer = A
+                    if player.participant.selector_homo_order == 1: # homo first
+                        df_A = Constants.df_mff # A profile
+                        r_A = player.participant.selector_r_mff
+                        df_B = Constants.df_mmm # B profile
+                        r_B = player.participant.selector_r_mmm
+                    else: # hetero first
+                        df_A = Constants.df_mmf # A profile
+                        r_A = player.participant.selector_r_mmf
+                        df_B = Constants.df_mfm # B profile
+                        r_B = player.participant.selector_r_mfm  
+            if profile_selector == 4: # {homo/hetero}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    if player.participant.selector_homo_order == 2: # homo second
+                        df_A = Constants.df_mmm # A profile
+                        r_A = player.participant.selector_r_mmm
+                        df_B = Constants.df_mff # B profile
+                        r_B = player.participant.selector_r_mff
+                    else: # hetero second
+                        df_A = Constants.df_mfm # A profile
+                        r_A = player.participant.selector_r_mfm
+                        df_B = Constants.df_mmf # B profile
+                        r_B = player.participant.selector_r_mmf                       
+                else: # female performer = A
+                    if player.participant.selector_homo_order == 2: # homo second
+                        df_A = Constants.df_mff # A profile
+                        r_A = player.participant.selector_r_mff
+                        df_B = Constants.df_mmm # B profile
+                        r_B = player.participant.selector_r_mmm
+                    else: # hetero second
+                        df_A = Constants.df_mmf # A profile
+                        r_A = player.participant.selector_r_mmf
+                        df_B = Constants.df_mfm # B profile
+                        r_B = player.participant.selector_r_mfm 
+
+        # childcare
+        if current_round in player.participant.selector_task_rounds['childcare']: 
+            # task
             player.task_in_this_round = "childcare"
-            df = Constants.df_childcare
+
+            # profile_selector index
             if player_task_order == 1:
-                profile_selector = current_round - Constants.rounds_per_task - 1
+                profile_selector = current_round - Constants.rounds_per_task       # profile_selector is just a way to account for the fact that the second task's "first" round is actually the 5th one
             else:
-                profile_selector = current_round - 1
-            r = player.participant.selector_childcare_r[profile_selector]
-        player.candidate_profile_index = r  
-        player.candidate_name_a = record_profile_info(df, r, 'candidate_name.a')
-        player.referrer_name_a = record_profile_info(df, r, 'referrer_name.a')
-        player.candidate_age_a = int(record_profile_info(df, r, 'candidate_age.a'))
-        player.candidate_score_a = int(record_profile_info(df, r, 'candidate_score.a'))
-        player.candidate_name_b = record_profile_info(df, r, 'candidate_name.b')
-        player.referrer_name_b = record_profile_info(df, r, 'referrer_name.b')
-        player.candidate_age_b = int(record_profile_info(df, r, 'candidate_age.b'))
-        player.candidate_score_b = int(record_profile_info(df, r, 'candidate_score.b'))
-        print("round:", player.round_number,", selection:", player.select, "referrer a:" , player.referrer_name_a , ", referrer b:", player.referrer_name_b)
+                profile_selector = current_round 
+
+            if profile_selector == 1: # {nm, nf}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    df_A = Constants.df_cnm # A profile
+                    r_A = player.participant.selector_r_cnm
+                    df_B = Constants.df_cnf # B profile
+                    r_B = player.participant.selector_r_cnf
+                else: # female performer = A
+                    df_A = Constants.df_cnf # A profile
+                    r_A = player.participant.selector_r_cnf
+                    df_B = Constants.df_cnm # B profile
+                    r_B = player.participant.selector_r_cnm
+            if profile_selector == 2: # {dummy}
+                if player.participant.selector_dummy_gender == 1: # males only
+                    df_A = Constants.df_cDmm # A profile
+                    r_A = player.participant.selector_r_cDmm[0]
+                    df_B = Constants.df_cDmm # B profile
+                    r_B = player.participant.selector_r_cDmm[1]
+                else: # females only
+                    df_A = Constants.df_cDff # A profile
+                    r_A = player.participant.selector_r_cDff[0]
+                    df_B = Constants.df_cDff # B profile
+                    r_B = player.participant.selector_r_cDff[1]
+            if profile_selector == 3: # {homo/hetero}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    if player.participant.selector_homo_order == 1: # homo first
+                        df_A = Constants.df_cmm # A profile
+                        r_A = player.participant.selector_r_cmm
+                        df_B = Constants.df_cff # B profile
+                        r_B = player.participant.selector_r_cff
+                    else: # hetero first
+                        df_A = Constants.df_cfm # A profile
+                        r_A = player.participant.selector_r_cfm
+                        df_B = Constants.df_cmf # B profile
+                        r_B = player.participant.selector_r_cmf                       
+                else: # female performer = A
+                    if player.participant.selector_homo_order == 1: # homo first
+                        df_A = Constants.df_cff # A profile
+                        r_A = player.participant.selector_r_cff
+                        df_B = Constants.df_cmm # B profile
+                        r_B = player.participant.selector_r_cmm
+                    else: # hetero first
+                        df_A = Constants.df_cmf # A profile
+                        r_A = player.participant.selector_r_cmf
+                        df_B = Constants.df_cfm # B profile
+                        r_B = player.participant.selector_r_cfm  
+            if profile_selector == 4: # {homo/hetero}
+                if player.participant.selector_gender_A[current_round - 1] == 1: # male performer = A
+                    if player.participant.selector_homo_order == 2: # homo second
+                        df_A = Constants.df_cmm # A profile
+                        r_A = player.participant.selector_r_cmm
+                        df_B = Constants.df_cff # B profile
+                        r_B = player.participant.selector_r_cff
+                    else: # hetero second
+                        df_A = Constants.df_cfm # A profile
+                        r_A = player.participant.selector_r_cfm
+                        df_B = Constants.df_cmf # B profile
+                        r_B = player.participant.selector_r_cmf                       
+                else: # female performer = A
+                    if player.participant.selector_homo_order == 2: # homo second
+                        df_A = Constants.df_cff # A profile
+                        r_A = player.participant.selector_r_cff
+                        df_B = Constants.df_cmm # B profile
+                        r_B = player.participant.selector_r_cmm
+                    else: # hetero second
+                        df_A = Constants.df_cmf # A profile
+                        r_A = player.participant.selector_r_cmf
+                        df_B = Constants.df_cfm # B profile
+                        r_B = player.participant.selector_r_cfm 
+
+        player.performer_name_a = df_A.loc[r_A, 'performer_name']
+        player.referral_code_a = df_A.loc[r_A, 'referral_code']
+        player.referrer_name_a = df_A.loc[r_A, 'referrer_name']
+        player.performer_age_a = int(df_A.loc[r_A, 'performer_age'])
+        player.performer_score_a = int(df_A.loc[r_A, 'score_rd2'])
+        player.performer_name_b = df_B.loc[r_B, 'performer_name']
+        player.referral_code_b = df_B.loc[r_B, 'referral_code']
+        player.referrer_name_b = df_B.loc[r_B, 'referrer_name']
+        player.performer_age_b = int(df_B.loc[r_B, 'performer_age'])
+        player.performer_score_b = int(df_B.loc[r_B, 'score_rd2'])
+
+
 
 class referrer_feedback(Page):
     form_model = 'player'
+    form_fields = [
+        'referrer_feedback2',
+        'referrer_feedback3',
+        'referrer_feedback4',
+    ]
 
-    def get_form_fields(player: Player):
-        if player.select == "Performer A":
-            referrer_name = player.referrer_name_a
-        else:
-            referrer_name = player.referrer_name_b
-        if referrer_name == "No referral":
-            pass
-        else:
-            return ['referrer_feedback']
-    
+    def is_displayed(player):
+        return (player.round_number == 4 or player.round_number == 8)
 
     def vars_for_template(player):
-        employer_reward_num = float(Constants.employer_reward[1:len(Constants.employer_reward)]) # this is just the employer's max payoff per round
+        selector_reward_num = float(Constants.selector_reward[1:len(Constants.selector_reward)]) # this is just the selector's max payoff per round
 
-        # get selected performer details
-        if player.select == "Performer A":
-            performer_name = player.candidate_name_a
-            performer_letter = "Performer A"
-            performer_score = (player.candidate_score_a)/5 # remember score should be percentage (may alter this with real data, depending on data structure)
+        # get data from rounds 2 and 3 and 4
+        round1 = player.in_round(player.round_number - 3)
+        if round1.select == "Performer A":
+            performer_name1 = round1.performer_name_a
+            performer_letter1 = "Performer A"
+            performer_score1 = (round1.performer_score_a)/5 
         else:
-            performer_name = player.candidate_name_b
-            performer_letter = "Performer B"
-            performer_score = (player.candidate_score_b)/5
+            performer_name1 = round1.performer_name_b
+            performer_letter1 = "Performer B"
+            performer_score1 = (round1.performer_score_b)/5
+        round2 = player.in_round(player.round_number - 2)
+        if round2.select == "Performer A":
+            performer_name2 = round2.performer_name_a
+            performer_letter2 = "Performer A"
+            performer_score2 = (round2.performer_score_a)/5 
+        else:
+            performer_name2 = round2.performer_name_b
+            performer_letter2 = "Performer B"
+            performer_score2 = (round2.performer_score_b)/5
+        round3 = player.in_round(player.round_number - 1)
+        if round3.select == "Performer A":
+            performer_name3 = round3.performer_name_a
+            performer_letter3 = "Performer A"
+            performer_score3 = (round3.performer_score_a)/5 
+        else:
+            performer_name3 = round3.performer_name_b
+            performer_letter3 = "Performer B"
+            performer_score3 = (round3.performer_score_b)/5
+        if player.select == "Performer A": # round 4 [i.e. currrent round]
+            performer_name4 = player.performer_name_a
+            performer_letter4 = "Performer A"
+            performer_score4 = (player.performer_score_a)/5 
+        else:
+            performer_name4 = player.performer_name_b
+            performer_letter4 = "Performer B"
+            performer_score4 = (player.performer_score_b)/5
 
-        # estimate payoff
-        payoff = str(round(employer_reward_num * performer_score, 2))
-        if len(payoff) < 4:  # this is just so the payoff is rendered in euro denom with two decimal points
-            payoff = payoff + "0"
-        payoff = "£" + payoff
+        # Payoffs
+        payoff1 = str(round(selector_reward_num*performer_score1, 2))
+        if len(payoff1) < 4:  # this is just so the payoff is rendered in euro denom with two decimal points
+            payoff1 = payoff1 + "0"
+        payoff1 = "£" + payoff1
+        payoff2 = str(round(selector_reward_num*performer_score2, 2))
+        if len(payoff2) < 4:  # this is just so the payoff is rendered in euro denom with two decimal points
+            payoff2 = payoff2 + "0"
+        payoff2 = "£" + payoff2
+        payoff3 = str(round(selector_reward_num*performer_score3, 2))
+        if len(payoff3) < 4:  # this is just so the payoff is rendered in euro denom with two decimal points
+            payoff3 = payoff3 + "0"
+        payoff3 = "£" + payoff3
+        payoff4 = str(round(selector_reward_num*performer_score4, 2))
+        if len(payoff4) < 4:  # this is just so the payoff is rendered in euro denom with two decimal points
+            payoff4 = payoff4 + "0"
+        payoff4 = "£" + payoff4
 
         # referrer feedback
+        if round1.select == "Performer A":
+            referrer_name1 = round1.referrer_name_a
+        else:
+            referrer_name1 = round1.referrer_name_b
+        if round2.select == "Performer A":
+            referrer_name2 = round2.referrer_name_a
+        else:
+            referrer_name2 = round2.referrer_name_b
+        if round3.select == "Performer A":
+            referrer_name3 = round3.referrer_name_a
+        else:
+            referrer_name3 = round3.referrer_name_b
         if player.select == "Performer A":
-            referrer_name = player.referrer_name_a
+            referrer_name4 = player.referrer_name_a
         else:
-            referrer_name = player.referrer_name_b
-        if referrer_name == "No referral":
-            template = 'selector_task/no_referrer_payoff_template.html'
-        else:
-            template = 'selector_task/referrer_payoff_template.html'
+            referrer_name4 = player.referrer_name_b
 
         # calculate display round
         player_task_order = player.participant.selector_task_order
@@ -410,14 +775,28 @@ class referrer_feedback(Page):
 
         # send variables to page
         return dict(
-                template = template,
                 task = player.task_in_this_round,
                 display_round = profile_selector + 1,
-                performer_name = performer_name,
-                performer_letter = performer_letter,
-                referrer_name = referrer_name,
-                employer_payoff = payoff,
-                performer_score = str(round(performer_score*100)) + "%"
+                performer_name1 = performer_name1,
+                performer_name2 = performer_name2,
+                performer_name3 = performer_name3,
+                performer_name4 = performer_name4,
+                performer_letter1 = performer_letter1,
+                performer_letter2 = performer_letter2,
+                performer_letter3 = performer_letter3,
+                performer_letter4 = performer_letter4,
+                referrer_name1 = referrer_name1,
+                referrer_name2 = referrer_name2,
+                referrer_name3 = referrer_name3,
+                referrer_name4 = referrer_name4,
+                payoff1 = payoff1,
+                payoff2 = payoff2,
+                payoff3 = payoff3,
+                payoff4 = payoff4,
+                performer_score1 = str(round(performer_score1*100)) + "%",
+                performer_score2 = str(round(performer_score2*100)) + "%",
+                performer_score3 = str(round(performer_score3*100)) + "%",
+                performer_score4 = str(round(performer_score4*100)) + "%",
         )
 
 
